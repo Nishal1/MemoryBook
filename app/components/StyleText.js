@@ -15,7 +15,7 @@ export default function StyleText(props) {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: 'Robot',
+        fontFamily: 'Roboto',
         fontSize: 25
     }
 })

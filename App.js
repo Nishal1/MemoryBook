@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native'
 
-import ColorPicker from './app/config/ColorPicker';
-
-import WelcomeScreen from './app/screens/WelcomeScreen';
+import AppNavigator from './app/navigation/AppNavigator';
 
 export default function App() {
   return (
-    <WelcomeScreen />
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
 

@@ -11,7 +11,7 @@ import ColorPicker from '../config/ColorPicker'
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({navigation}) {
   return (
    <Screen>
         <ImageBackground
@@ -35,11 +35,11 @@ export default function WelcomeScreen() {
                 <View style={styles.buttonsContainer}>
                     <AppButton 
                         title="Login"
-                        onPress={() => console.log("login pressed")}
+                        onPress={() => navigation.navigate("login")}
                     />
                     <AppButton 
                         title="Register"
-                        onPress={() => console.log("login pressed")}
+                        onPress={() => navigation.navigate("register")}
                         color="otherColor2"
                     />
                 </View>
@@ -55,8 +55,9 @@ const styles = StyleSheet.create({
         flex: 1
     },
     mainContainer: {
-        backgroundColor: ColorPicker.white,
-        borderRadius: 20,
+        backgroundColor: ColorPicker.offWhite,
+        borderWidth: 10,
+        borderColor: ColorPicker.khaki,
         justifyContent: 'center',
         alignItems: 'center',
         flex: 0.70,
