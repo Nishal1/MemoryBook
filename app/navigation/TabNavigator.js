@@ -12,21 +12,45 @@ const Tab = createBottomTabNavigator();;
 
 export default function TabNavigator() {
   return (
-      <Tab.Navigator screenOptions={{activeTintColor: ColorPicker.otherColor, activeBackgroundColor: ColorPicker.primaryColor}}>
+      <Tab.Navigator screenOptions={{
+            tabBarActiveBackgroundColor: ColorPicker.primaryColor,
+            tabBarInactiveBackgroundColor: ColorPicker.inActiveColor
+          }}>
         <Tab.Screen 
             name="AccountHome" 
             component={AccountScreen}  
-            options={{headerShown: false, tabBarIcon: () => <CustomIcon size={30} name="home" backgroundColor={ColorPicker.otherColor} />}}
+            options={{
+                headerShown: false, 
+                tabBarIcon: () => 
+                    <CustomIcon size={40} 
+                    name="account"
+                    iconColor='#FFF'
+                    backgroundColor={ColorPicker.otherColor} />
+            }}
         />
         <Tab.Screen 
             name="Memory" 
             component={MemoriesScreen}  
-            options={{headerShown: false, tabBarIcon: () => <CustomIcon size={30} name="plus-circle" backgroundColor={ColorPicker.otherColor} />}} 
+            options={{
+                headerShown: false, 
+                tabBarIcon: () => 
+                    <CustomIcon size={40} 
+                    name="image-multiple"
+                    iconColor='#FFF'
+                    backgroundColor={ColorPicker.otherColor} />
+            }}
         />
         <Tab.Screen 
             name="MoreInfo" 
             component={MoreInfoScreen}  
-            options={{headerShown: false, tabBarIcon: () => <CustomIcon size={30} name="book-open-variant" backgroundColor={ColorPicker.otherColor} />}} 
+            options={{
+                headerShown: false, 
+                tabBarIcon: () => 
+                    <CustomIcon size={40} 
+                    name="plus-box"
+                    iconColor='#FFF'
+                    backgroundColor={ColorPicker.otherColor} />
+            }}
         />
       </Tab.Navigator>
   )
