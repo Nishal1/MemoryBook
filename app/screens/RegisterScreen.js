@@ -14,7 +14,7 @@ import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
 
 import {users} from '../config/users';
-import { isUniqueUser, registerUser } from '../controller/logic';
+import { isUniqueUser, registerUser, getUser } from '../controller/logic';
 
 const schema = Yup.object().shape(
     {
@@ -49,9 +49,15 @@ return (
                         if(isUniqueUser(users, values)) {
                           //push to users array
                           registerUser(values);
-                          beginSession(users, values);
+                          let userLoggedIn = getUser(users, values.username);
                           navigation.navigate('Account', {
-                            currUser: values
+                            screen: 'AccountHome',
+                            params: {
+                                screen: 'Account',
+                                params: {
+                                   currUser: userLoggedIn
+                                }
+                            }
                           });
                         } else {
                           resetForm();

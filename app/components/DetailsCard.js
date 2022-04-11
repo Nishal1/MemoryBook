@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     text: {
-      fontSize: 16,
+      fontSize: 16
     }
 })

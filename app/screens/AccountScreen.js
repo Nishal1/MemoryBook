@@ -13,6 +13,7 @@ import Screen from '../components/Screen';
 
 import { endSession } from '../controller/logic';
 
+const defaultPic = require('../assets/defaultProfile.png')
 
 export default function AccountScreen({navigation, route}) {
   const { currUser } = route.params;
@@ -20,19 +21,22 @@ export default function AccountScreen({navigation, route}) {
   return (
     <Screen style={styles.container}>
         <View style={styles.body}>
-            <Image style={styles.img} source={currUser.profilePic}/>
-            <View style={styles.detailsContainer}>
-                
+            {currUser.profilePic && <Image style={styles.img} source={currUser.profilePic}/>}
+            {!currUser.profilePic && <Image style={styles.img} source={defaultPic}/>}
+            <View style={styles.profileContainer}>
                 <View style={styles.text}>
                     <AppText>{currUser.name}</AppText>
                 </View>
+            </View>
 
+            <View style={styles.detailsContainer}>
                 <DetailsCard 
-                        name={currUser.name}
-                        username={currUser.username}
-                        email={currUser.email}        
+                    name={currUser.name}
+                    username={currUser.username}
+                    email={currUser.email}        
                 />
             </View>
+
             <View style={styles.button}>
                     <AppButton 
                         color="red"
@@ -64,11 +68,11 @@ const styles = StyleSheet.create({
     },
     button: {
         width: '25%',
-        marginBottom: 20,
+        marginBottom: 50,
         marginLeft: 'auto',
         marginRight: 'auto'
     },
-    detailsContainer: {
+    profileContainer: {
         flex: 1,
         marginLeft: 'auto',
         marginRight: 'auto'
@@ -85,5 +89,10 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 10
+    },
+    detailsContainer: {
+        // flex: 5,
+        margin: 10,
+        height: 200
     }
 })
