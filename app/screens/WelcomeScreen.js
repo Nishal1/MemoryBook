@@ -35,11 +35,11 @@ export default function WelcomeScreen({navigation}) {
                 <View style={styles.buttonsContainer}>
                     <AppButton 
                         title="Login"
-                        onPress={() => navigation.navigate("login")}
+                        onPress={() => navigation.navigate("Login")}
                     />
                     <AppButton 
                         title="Register"
-                        onPress={() => navigation.navigate("register")}
+                        onPress={() => navigation.navigate("Register")}
                         color="otherColor2"
                     />
                 </View>

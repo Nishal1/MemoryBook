@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import ColorPicker from '../config/ColorPicker'
 
-export default function AppTextInput({icon}, ...otherProps) {
+export default function AppTextInput({icon, ...otherProps}) {
   return (
     <View style={styles.container}>
       {icon && 

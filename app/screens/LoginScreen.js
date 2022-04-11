@@ -1,9 +1,8 @@
 import { StyleSheet,
-    Text,
+    ScrollView,
     View,
     ImageBackground } from 'react-native';
 import React from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik  } from 'formik';
 import * as Yup from 'yup';
 
@@ -14,13 +13,15 @@ import ColorPicker from '../config/ColorPicker';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
 
-import {users} from '../config/SeedData';
-import { authenticate } from '../controller/logic';
+import { authenticate, beginSession } from '../controller/logic';
+import {users} from '../config/users';
+
+
 
 const schema = Yup.object().shape(
     {
         username: Yup.string().required().label("Username"),
-        password: Yup.string().required().min(6).max(8).label("Password")
+        password: Yup.string().required().min(4).max(8).label("Password")
     }
 );
 
@@ -32,14 +33,16 @@ export default function LoginScreen({navigation}) {
             style={styles.background}
             blurRadius={0.9}
         >
+          <ScrollView>
             <View style={styles.mainContainer}>
             <StyleText>Login</StyleText>
                 <Formik
                     initialValues={{username: "", password: ""}}
                     onSubmit={(values, {resetForm}) => {
-                        if(authenticate(values)) {
-                            console.log(values);
+                        if(authenticate(users, values)) {
                             resetForm();
+                            beginSession(users, values);
+                            navigation.navigate('Account');
                         } else {
                             resetForm();
                             alert("Invalid login details");
@@ -69,8 +72,8 @@ export default function LoginScreen({navigation}) {
                                 onBlur={() => setFieldTouched("password")}
                                 onChangeText = {handleChange("password")}
                                 placeholder="Password"
-                                textContentType="password" 
-                                value={values.username} 
+                                secureTextEntry 
+                                value={values.password} 
                             />
                             {touched.password && <AppText>{errors.password}</AppText>}
                         </View>
@@ -79,17 +82,12 @@ export default function LoginScreen({navigation}) {
                                 title="Login"
                                 onPress={handleSubmit}
                             />
-                            <AppButton 
-                                title="Go back"
-                                onPress={() => navigation.goBack()}
-                                color="otherColor2"
-                            />
                         </View>
                     </>
                 )}
                 </Formik>
-                
-            </View>            
+            </View>
+          </ScrollView>            
         </ImageBackground>
     </Screen>
   )
@@ -109,7 +107,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 500,
-        marginTop: 55,
+        marginTop: '25%',
         margin: 20,
         elevation: 20,
         shadowColor: ColorPicker.black,
