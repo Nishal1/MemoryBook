@@ -7,5 +7,6 @@ export default {
     inActiveColor: '#37414a',
     white: '#fff',
     offWhite: '#f5f5f5',
-    khaki: '#B5A197'
+    khaki: '#B5A197',
+    red: "#C82333"
 }

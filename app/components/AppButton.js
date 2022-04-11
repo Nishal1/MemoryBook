@@ -10,7 +10,10 @@ export default function AppButton(props) {
   return (
     <TouchableOpacity onPress={props.onPress}>
         <View style={props.color? [styles.button, {backgroundColor: ColorPicker[props.color]}] :styles.button}>
-            <Text style={styles.text}>{props.title}</Text>
+            {props.icon && props.icon}
+            <Text style={styles.text}>    
+                {props.title}
+            </Text>
         </View>
     </TouchableOpacity>
   )
@@ -18,6 +21,7 @@ export default function AppButton(props) {
 
 const styles = StyleSheet.create({
     button: {
+        flexDirection: 'row',
         backgroundColor: ColorPicker.secondaryColor,
         borderRadius: 15,
         width: '100%',

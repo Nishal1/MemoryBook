@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import AccountScreen from '../screens/AccountScreen';
+import AccountsNavigator from './AccountsNavigator';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
 import MemoriesScreen from '../screens/MemoriesScreen';
@@ -16,9 +16,10 @@ export default function TabNavigator() {
             tabBarActiveBackgroundColor: ColorPicker.primaryColor,
             tabBarInactiveBackgroundColor: ColorPicker.inActiveColor
           }}>
+        
         <Tab.Screen 
             name="AccountHome" 
-            component={AccountScreen}  
+            component={AccountsNavigator}  
             options={{
                 headerShown: false, 
                 tabBarIcon: () => 

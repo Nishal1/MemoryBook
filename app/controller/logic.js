@@ -11,8 +11,8 @@ module.exports.authenticate = (users, user) => {
                             u.password === user.password).length > 0;
 }
 
-module.exports.getUser = (users, user) => {
-    return users.find(u => u.username === user.username);
+module.exports.getUser = (users, username) => {
+    return users.find(u => u.username === username);
 }
 
 module.exports.beginSession = (users, user) => {
@@ -22,6 +22,26 @@ module.exports.beginSession = (users, user) => {
 
     console.log("currUser");
     console.log(currUser);
+}
+
+module.exports.endSession = () => {
+    let commonData = DataManager.getInstance();
+    commonData.logout();
+}
+
+module.exports.getCurrUser = () => {
+    let commonData = DataManager.getInstance();
+    let currUser = commonData.getLoggedInUser();
+    return currUser;
+}
+
+module.exports.isCurrUser = () => {
+    let commonData = DataManager.getInstance();
+    if(commonData.getLoggedInUser() != null) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 module.exports.isUniqueUser = (users, user) => {

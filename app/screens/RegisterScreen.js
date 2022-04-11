@@ -49,7 +49,10 @@ return (
                         if(isUniqueUser(users, values)) {
                           //push to users array
                           registerUser(values);
-                          navigation.navigate('Account');
+                          beginSession(users, values);
+                          navigation.navigate('Account', {
+                            currUser: values
+                          });
                         } else {
                           resetForm();
                           alert("Username already exists");

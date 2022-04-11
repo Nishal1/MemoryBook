@@ -30,9 +30,9 @@ export default class DataManager {
         console.log(users);
     }
 
-    getUserID() {
+    getLoggedInUser() {
         if(this.session) {
-            return this.session.id;
+            return this.session;
         }
         return null;
     }
