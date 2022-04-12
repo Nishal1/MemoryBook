@@ -51,10 +51,10 @@ return (
                           registerUser(values);
                           let userLoggedIn = getUser(values.username);
                           alert("Welcome "+ values.name);
-                          navigation.navigate('Account', {
-                            screen: 'AccountHome',
+                          navigation.navigate('AccountHome', {
+                            screen: 'Account',
                             params: {
-                                screen: 'Account',
+                                screen: 'AccountHome1',
                                 params: {
                                    currUser: userLoggedIn
                                 }

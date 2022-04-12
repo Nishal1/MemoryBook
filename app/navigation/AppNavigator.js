@@ -28,7 +28,7 @@ export default function AppNavigator() {
           options={{title: "Go back"}} 
         />
         <Stack.Screen 
-          name="Account"
+          name="AccountHome"
           component={TabNavigator}
           options={{headerShown: false}} 
         />

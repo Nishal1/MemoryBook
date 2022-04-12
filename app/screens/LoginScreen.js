@@ -42,10 +42,10 @@ export default function LoginScreen({navigation}) {
                                 resetForm();
                                 beginSession(values);
                                 let userLoggedIn = getUser(values.username);
-                                navigation.navigate('Account', {
-                                    screen: 'AccountHome',
+                                navigation.navigate('AccountHome', {
+                                    screen: 'Account',
                                     params: {
-                                        screen: 'Account',
+                                        screen: 'AccountHome1',
                                         params: {
                                            currUser: userLoggedIn
                                         }

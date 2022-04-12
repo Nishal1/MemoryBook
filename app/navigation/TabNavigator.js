@@ -18,7 +18,7 @@ export default function TabNavigator() {
           }}>
         
         <Tab.Screen 
-            name="AccountHome" 
+            name="Account" 
             component={AccountsNavigator}  
             options={{
                 headerShown: false, 

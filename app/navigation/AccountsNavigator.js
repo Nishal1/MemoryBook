@@ -11,7 +11,7 @@ export default function AccountsNavigator() {
   return (
     <Stack.Navigator>
         <Stack.Screen 
-          name="Account"
+          name="AccountHome1"
           component={AccountScreen} 
           options={{headerShown: false}}
         />

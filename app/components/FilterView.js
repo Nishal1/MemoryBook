@@ -9,7 +9,6 @@ import AppText from './AppText';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from './CustomIcon';
 import FilterOptionView from './FilterOptionView';
-import Screen from './Screen';
 
 import { getCategories } from '../controller/logic';
 
@@ -47,41 +46,41 @@ export default function FilterView({placeholder, selectedItem, onSelectItem}) {
             transparent={true}
             visible={isModalVisible} 
         >
-            <Screen>
-                <BlurView intensity={100} style={styles.modal} tint="light">
-                    <FlatList
-                        data={categories}
-                        keyExtractor={categ => categ.id.toString()} 
-                        key={'#'}
-                        numColumns={3}
-                        renderItem={({item}) => 
-                            <FilterOptionView 
-                                icon={item.icon}
-                                iconColor={ColorPicker.primaryColor}
-                                title={item.name}
-                                onPress={() => {
-                                    setVisibility(false);
-                                    onSelectItem(item);
-                                }}
-                                backgroundColor={ColorPicker.white}
-                            />
-                        }
-                    />
-                    
-                    <TouchableOpacity onPress={() => setVisibility(false)}>
-                        <CustomIcon
-                            backgroundColor={ColorPicker.white} 
+            
+            <BlurView intensity={100} style={styles.modal} tint="light">
+                <FlatList
+                    data={categories}
+                    keyExtractor={categ => categ.id.toString()} 
+                    key={'#'}
+                    numColumns={3}
+                    renderItem={({item}) => 
+                        <FilterOptionView 
+                            icon={item.icon}
                             iconColor={ColorPicker.primaryColor}
-                            name="close-circle"
-                            size={140}
-                            style={styles.closeIcon}
+                            title={item.name}
+                            onPress={() => {
+                                setVisibility(false);
+                                onSelectItem(item);
+                            }}
+                            backgroundColor={ColorPicker.white}
                         />
-                    </TouchableOpacity>
-
-                    
-                </BlurView>
+                    }
+                />
                 
-            </Screen>
+                <TouchableOpacity onPress={() => setVisibility(false)}>
+                    <CustomIcon
+                        backgroundColor={ColorPicker.white} 
+                        iconColor={ColorPicker.primaryColor}
+                        name="close-circle"
+                        size={140}
+                        style={styles.closeIcon}
+                    />
+                </TouchableOpacity>
+
+                
+            </BlurView>
+            
+           
         </Modal>
     </View>
   )
