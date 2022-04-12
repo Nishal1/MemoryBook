@@ -14,17 +14,18 @@ export default function FormTextInput({...otherProps}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: ColorPicker.offWhite,
+        backgroundColor: ColorPicker.otherColor2,
         borderBottomWidth: 1,
         flexDirection: 'row',
         padding: 10,
         marginVertical: 10,
-        width: '100%'
+        width: '100%',
    },
    textInput: {
         fontSize: 20,
         fontFamily: 'Roboto',
         marginLeft: 10,
-        flex: 1
+        flex: 1,
+        color: ColorPicker.black
     }
 })

@@ -15,7 +15,10 @@ import { getCurrUser } from '../controller/logic';
 
 export default function TabNavigator() {
   const user = getCurrUser();
-  const image = user.profilePic;
+  let image = user.profilePic;
+  if(image == null) {
+    image = require('../assets/defaultProfile.png')
+  }
   return (
       <Tab.Navigator screenOptions={{
             tabBarActiveBackgroundColor: ColorPicker.primaryColor,
@@ -72,7 +75,9 @@ const styles = StyleSheet.create({
     img: {
         borderRadius: 250,
         flex: 1,
+        height: 40,
+        marginTop: 2,
         width: 30,
-        height: 40
+        
     }
 })

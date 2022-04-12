@@ -12,9 +12,15 @@ import Screen from '../components/Screen';
 
 import { filterCategories, getImgs } from '../controller/logic';
 
-export default function MemoriesScreen() {
+export default function MemoriesScreen({ route }) {
   const [category, setCategory] = useState(null);
   let imageList = (category) ? filterCategories(category) : getImgs();
+  if(route.params) {
+    const { refresh } = route.params;
+    if(refresh) {
+      setCategory(null);
+    }
+  }
   return (
     <Screen >
       <FilterView 

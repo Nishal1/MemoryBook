@@ -58,7 +58,14 @@ export default function NewMemoryScreen({navigation}) {
                             const newMemory = {...values, ...image}
                             console.log(newMemory);
                             addMemory(newMemory, getCurrUser().id);
-                            navigation.navigate('Memory');
+                            resetForm();
+                            setImage(null);
+                            navigation.navigate('Memory', {
+                                screen: 'Memory',
+                                params: {
+                                   refresh: true
+                                }
+                            });
                         } else {
                             alert("Please select a valid image")
                         }
@@ -74,7 +81,7 @@ export default function NewMemoryScreen({navigation}) {
                                 onBlur={() => setFieldTouched("title")}
                                 onChangeText = {handleChange("title")}
                                 placeholder="Title/caption" 
-                                value={values.email}   
+                                value={values.title}   
                             />
                             {touched.title && <AppText>{errors.title}</AppText>}
                             <FormTextInput 
@@ -98,7 +105,7 @@ export default function NewMemoryScreen({navigation}) {
                                 {image && 
                                     <Image 
                                         source={{ uri: image.source }} 
-                                        style={{height: 100, width: 100}}/>
+                                        style={styles.img}/>
                                 }
                             </TouchableOpacity>
                            
@@ -121,13 +128,14 @@ export default function NewMemoryScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginTop: 0
+      marginTop: 0,
+      backgroundColor: ColorPicker.otherColor1
     },
     background: {
       flex: 1
     },
     mainContainer: {
-      backgroundColor: ColorPicker.offWhite,
+      backgroundColor: ColorPicker.otherColor2,
       borderWidth: 10,
       borderColor: ColorPicker.khaki,
       justifyContent: 'center',
@@ -152,6 +160,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
+    },
+    img: {
+        height: 100, 
+        width: 100,
+        borderRadius: 20,
+        opacity: 0.5
     }
   });
   

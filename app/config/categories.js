@@ -26,4 +26,9 @@ module.exports.categories = [
         name: 'Food',
         icon: 'food'
     },
+    {
+        id: uuidv4(),
+        name: 'Fun',
+        icon: 'popcorn'
+    },
 ]

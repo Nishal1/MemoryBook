@@ -93,7 +93,7 @@ module.exports.images = [
     id: uuidv4(),
     userid: 2,
     title: "Minion Snap",
-    category: 'Entertainment',
+    category: 'Fun',
     created: new Date(),
     source: require('../assets/user2img7.jpg')
   },
