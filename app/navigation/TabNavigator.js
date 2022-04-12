@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -9,9 +9,13 @@ import MemoriesScreen from '../screens/MemoriesScreen';
 import MoreInfoScreen from '../screens/MoreInfoScreen';
 import NewMemoryScreen from '../screens/NewMemoryScreen';
 
-const Tab = createBottomTabNavigator();;
+const Tab = createBottomTabNavigator();
+
+import { getCurrUser } from '../controller/logic';
 
 export default function TabNavigator() {
+  const user = getCurrUser();
+  const image = user.profilePic;
   return (
       <Tab.Navigator screenOptions={{
             tabBarActiveBackgroundColor: ColorPicker.primaryColor,
@@ -24,10 +28,16 @@ export default function TabNavigator() {
             options={{
                 headerShown: false, 
                 tabBarIcon: () => 
-                    <CustomIcon size={40} 
-                    name="account"
-                    iconColor='#FFF'
-                    backgroundColor={ColorPicker.otherColor} />
+                isFinite(image)?
+                    <Image 
+                      source={image}
+                      style={styles.img}
+                    /> :
+                    <Image 
+                      source={{uri: image}}
+                      style={styles.img}
+                    /> 
+                  
             }}
         />
         <Tab.Screen 
@@ -58,4 +68,11 @@ export default function TabNavigator() {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    img: {
+        borderRadius: 250,
+        flex: 1,
+        width: 30,
+        height: 40
+    }
+})
