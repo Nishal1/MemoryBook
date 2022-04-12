@@ -16,7 +16,7 @@ export default function DetailsCard({name, username, email}) {
             Username: {username}
         </AppText>
         <AppText style={styles.text}>
-            Username: {email}
+            Email: {email}
         </AppText>
         
     </View>
@@ -25,16 +25,16 @@ export default function DetailsCard({name, username, email}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: ColorPicker.secondaryColor,
-        flex: 0.5,
-        padding: 20,
-        marginTop: 50,
-        elevation: 20,
-        shadowColor: ColorPicker.black,
-        borderRadius: 10,
-        justifyContent: 'space-around',
+        flex: 1,
+        justifyContent: 'space-between'
     },
     text: {
-      fontSize: 16
+      backgroundColor: ColorPicker.primaryColor,
+      color: ColorPicker.offWhite,
+      fontSize: 16,
+      padding: 20,
+      elevation: 20,
+      shadowColor: ColorPicker.black,
+      borderRadius: 10,
     }
 })
