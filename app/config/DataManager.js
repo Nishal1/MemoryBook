@@ -59,4 +59,9 @@ export default class DataManager {
     getCategories() {
         return categories;
     }
+
+    addMemory(memory) {
+        images.push(memory);
+        console.log(images);
+    }
 }

@@ -1,5 +1,5 @@
 import DataManager from "../config/DataManager";
-
+import { v4 as uuidv4 } from 'uuid';
 /**
  * 
  * @param {*} user The user trying to log in
@@ -90,4 +90,18 @@ module.exports.filterCategories = (category) => {
     const result = imgs.filter(im => im.category === category.name);
     console.log(result);
     return result;
+}
+
+module.exports.addMemory = (memory, uid) => {
+    if(memory == null) {
+        return;
+    }
+    let commonData = DataManager.getInstance();
+    let newMemory = {
+        id: uuidv4(),
+        userid: uid,
+        ...memory,
+        created: new Date()
+    }
+    commonData.addMemory(newMemory);
 }

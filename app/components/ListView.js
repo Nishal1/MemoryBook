@@ -11,10 +11,17 @@ export default function ListView({image, title}) {
   return (
     <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image 
-            source={image}
-            style={styles.img}
-          />
+          {isFinite(image)?
+            <Image 
+              source={image}
+              style={styles.img}
+            /> :
+            <Image 
+              source={{uri: image}}
+              style={styles.img}
+            /> 
+          }
+          
           <AppText style={styles.text}>{newTitle}</AppText>
         </View>
     </View>

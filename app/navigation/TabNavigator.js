@@ -7,6 +7,7 @@ import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
 import MemoriesScreen from '../screens/MemoriesScreen';
 import MoreInfoScreen from '../screens/MoreInfoScreen';
+import NewMemoryScreen from '../screens/NewMemoryScreen';
 
 const Tab = createBottomTabNavigator();;
 
@@ -42,8 +43,8 @@ export default function TabNavigator() {
             }}
         />
         <Tab.Screen 
-            name="MoreInfo" 
-            component={MoreInfoScreen}  
+            name="Add" 
+            component={NewMemoryScreen}  
             options={{
                 headerShown: false, 
                 tabBarIcon: () => 
