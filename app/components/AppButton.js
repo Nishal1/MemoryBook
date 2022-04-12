@@ -6,13 +6,13 @@ import React from 'react';
 
 import ColorPicker from '../config/ColorPicker';
 
-export default function AppButton(props) {
+export default function AppButton({color, icon, onPress, title}) {
   return (
-    <TouchableOpacity onPress={props.onPress}>
-        <View style={props.color? [styles.button, {backgroundColor: ColorPicker[props.color]}] :styles.button}>
-            {props.icon && props.icon}
+    <TouchableOpacity onPress={onPress}>
+        <View style={color? [styles.button, {backgroundColor: ColorPicker[color]}] :styles.button}>
+            {icon && icon}
             <Text style={styles.text}>    
-                {props.title}
+                {title}
             </Text>
         </View>
     </TouchableOpacity>

@@ -78,3 +78,16 @@ module.exports.textLengthReducer = (str) => {
         return str;
     }
 }
+
+module.exports.getCategories = () => {
+    let commonData = DataManager.getInstance();
+    return commonData.getCategories();
+}
+
+module.exports.filterCategories = (category) => {
+    let commonData = DataManager.getInstance();
+    const imgs = commonData.getImages();
+    const result = imgs.filter(im => im.category === category.name);
+    console.log(result);
+    return result;
+}

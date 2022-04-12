@@ -23,7 +23,7 @@ export default function ListView({image, title}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1/3,
         borderRadius: 20,
         backgroundColor: ColorPicker.otherColor1,
         margin: 5

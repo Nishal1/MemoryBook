@@ -1,10 +1,10 @@
 import { users } from "./users";
 import { images } from "./images";
-
+import { categories } from "./categories";
 export default class DataManager {
     static myInstance = null;
     session = null;
-
+    
     static getInstance() {
         if(DataManager.myInstance == null) {
             DataManager.myInstance = new DataManager();
@@ -52,9 +52,11 @@ export default class DataManager {
 
     getImages() {
         let signedInUserId = this.getUserId();
-        console.log(signedInUserId);
         let currImgs = images.filter(img => img.userid === signedInUserId);
-        console.log(currImgs)
         return currImgs;
+    }
+
+    getCategories() {
+        return categories;
     }
 }

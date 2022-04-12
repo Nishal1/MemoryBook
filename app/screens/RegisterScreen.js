@@ -50,6 +50,7 @@ return (
                           //push to users array
                           registerUser(values);
                           let userLoggedIn = getUser(values.username);
+                          alert("Welcome "+ values.name);
                           navigation.navigate('Account', {
                             screen: 'AccountHome',
                             params: {
