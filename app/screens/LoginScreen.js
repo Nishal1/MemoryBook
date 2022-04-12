@@ -14,13 +14,8 @@ import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
 
 import { authenticate, 
-        beginSession, 
-        getUser,
-        isCurrUser,
-        getCurrUser } from '../controller/logic';
-import {users} from '../config/users';
-
-
+    beginSession, 
+    getUser } from '../controller/logic';
 
 const schema = Yup.object().shape(
     {
@@ -43,10 +38,10 @@ export default function LoginScreen({navigation}) {
                     <Formik
                         initialValues={{username: "", password: ""}}
                         onSubmit={(values, {resetForm}) => {
-                            if(authenticate(users, values)) {
+                            if(authenticate(values)) {
                                 resetForm();
-                                beginSession(users, values);
-                                let userLoggedIn = getUser(users, values.username);
+                                beginSession(values);
+                                let userLoggedIn = getUser(values.username);
                                 navigation.navigate('Account', {
                                     screen: 'AccountHome',
                                     params: {
@@ -108,7 +103,8 @@ export default function LoginScreen({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        marginTop: 0
     },
     background: {
         flex: 1

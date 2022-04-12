@@ -13,8 +13,8 @@ import ColorPicker from '../config/ColorPicker';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
 
-import {users} from '../config/users';
 import { isUniqueUser, registerUser, getUser } from '../controller/logic';
+
 
 const schema = Yup.object().shape(
     {
@@ -46,10 +46,10 @@ return (
                         // make sure new user is not aldready registered
                         resetForm();
                         console.log(values);
-                        if(isUniqueUser(users, values)) {
+                        if(isUniqueUser(values)) {
                           //push to users array
                           registerUser(values);
-                          let userLoggedIn = getUser(users, values.username);
+                          let userLoggedIn = getUser(values.username);
                           navigation.navigate('Account', {
                             screen: 'AccountHome',
                             params: {
@@ -132,7 +132,8 @@ return (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    marginTop: 0
   },
   background: {
     flex: 1

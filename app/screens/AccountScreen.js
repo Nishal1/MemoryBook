@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        backgroundColor: ColorPicker.otherColor1
+        backgroundColor: ColorPicker.offWhite
     },
     button: {
         width: '25%',

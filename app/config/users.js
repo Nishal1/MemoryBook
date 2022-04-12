@@ -4,7 +4,7 @@ module.exports.users = [
         name: "James Carter",
         username: "james",
         email: "jc@gmail.com",
-        password: "11111111",
+        password: "1111",
         profilePic: require('../assets/user1.jpg'),
         image: []
     },

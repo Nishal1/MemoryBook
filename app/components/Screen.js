@@ -15,7 +15,7 @@ export default function Screen(props) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        marginTop: 0
+        marginTop: Constants.statusBarHeight
     },
     paddingView: {
       flex: 1

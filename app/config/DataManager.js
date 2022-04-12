@@ -4,6 +4,7 @@ import { images } from "./images";
 export default class DataManager {
     static myInstance = null;
     session = null;
+
     static getInstance() {
         if(DataManager.myInstance == null) {
             DataManager.myInstance = new DataManager();
@@ -35,5 +36,25 @@ export default class DataManager {
             return this.session;
         }
         return null;
+    }
+
+    getUserId() {
+        if(this.session) {
+            return this.session.id
+        } else {
+            return "";
+        }
+    }
+
+    getAllUsers() {
+        return users;
+    }
+
+    getImages() {
+        let signedInUserId = this.getUserId();
+        console.log(signedInUserId);
+        let currImgs = images.filter(img => img.userid === signedInUserId);
+        console.log(currImgs)
+        return currImgs;
     }
 }
