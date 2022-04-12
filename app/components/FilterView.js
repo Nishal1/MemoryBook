@@ -101,5 +101,6 @@ const styles = StyleSheet.create({
     },
     modal: {
         flex: 1,
+        marginTop: 0
     }
 })

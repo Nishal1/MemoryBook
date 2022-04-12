@@ -24,24 +24,23 @@ export default function MemoriesScreen() {
         placeholder="All Categories"
         selectedItem={category}
       />
-      {category ?
-          (<View style={styles.cancelButtonContainer}>
-              <AppButton 
-                  color="otherColor1"
-                  icon={<CustomIcon 
-                          size={24} 
-                          name="cancel"
-                          iconColor='#FFF'
-                          backgroundColor={ColorPicker.otherColor}
-                  />}
-                  onPress={() => {
-                      setCategory(null);
-                  }}
-                  title="Clear All filter"  
-              />
-          </View>):(<></>)}
-
       <View style={styles.container}>
+        {category ?
+            (<View style={styles.cancelButtonContainer}>
+                <AppButton 
+                    color="primaryColor"
+                    icon={<CustomIcon 
+                            size={24} 
+                            name="cancel"
+                            iconColor='#FFF'
+                            backgroundColor={ColorPicker.otherColor}
+                    />}
+                    onPress={() => {
+                        setCategory(null);
+                    }}
+                    title="Clear All filter"  
+                />
+            </View>):(<></>)}
         {imageList.length > 0 ? 
           <FlatList  
           data={imageList}
@@ -67,9 +66,10 @@ export default function MemoriesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: ColorPicker.offWhite,
+    backgroundColor: ColorPicker.otherColor1,
   },
   cancelButtonContainer: {
+    backgroundColor: ColorPicker.otherColor1,
     marginBottom: 10,
     marginLeft: 'auto',
     marginRight: 'auto',

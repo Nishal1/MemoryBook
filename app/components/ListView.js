@@ -32,8 +32,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1/3,
         borderRadius: 20,
-        backgroundColor: ColorPicker.otherColor1,
-        margin: 5
+        backgroundColor: ColorPicker.primaryColor,
+        margin: 3,
+        elevation: 20,
+        shadowColor: ColorPicker.black,
     },
     imageContainer: {
       borderRadius: 20,
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     text: {
       fontSize: 14,
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      color: ColorPicker.white
     }
 })
