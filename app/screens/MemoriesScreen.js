@@ -22,7 +22,7 @@ export default function MemoriesScreen({ route }) {
     }
   }
   return (
-    <Screen >
+    <Screen>
       <FilterView 
         onSelectItem={item => {
           setCategory(item);

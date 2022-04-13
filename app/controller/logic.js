@@ -105,3 +105,25 @@ module.exports.addMemory = (memory, uid) => {
     }
     commonData.addMemory(newMemory);
 }
+
+module.exports.deleteMemory = (memory) => {
+    if(memory == null) {
+        return;
+    }
+    let commonData = DataManager.getInstance();
+    commonData.deleteMemory(memory);
+}
+
+module.exports.updateMemory = (memory, memoryId, uid) => {
+    if(memory == null) {
+        return;
+    }
+    let commonData = DataManager.getInstance();
+    let updatedMemory = {
+        id: memoryId,
+        userid: uid,
+        ...memory,
+        created: new Date()
+    }
+    commonData.updateMemory(updatedMemory);
+}

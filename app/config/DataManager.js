@@ -61,7 +61,34 @@ export default class DataManager {
     }
 
     addMemory(memory) {
+        if(memory == null) {
+            return;
+        }
         images.push(memory);
+        console.log(images);
+    }
+
+    deleteMemory(memory) {
+        if(memory == null) {
+            return;
+        }
+        //only signed in user can delete their own memory
+        let signedInUserId = this.getUserId(); 
+        images = images.filter(img => (img.id === memory.id) && 
+                                       (img.userid === signedInUserId));
+        console.log(images);
+    }
+
+    updateMemory(memory) {
+        if(memory == null) {
+            return;
+        }
+        let signedInUserId = this.getUserId();
+        images = images.map(img => {
+            if(img.id === memory.id) {
+                return memory;
+            }
+        });
         console.log(images);
     }
 }

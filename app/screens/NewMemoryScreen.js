@@ -51,8 +51,6 @@ export default function NewMemoryScreen({navigation}) {
                                     category: ""
                                 }}
                     onSubmit={(values, {resetForm}) => {
-                        //push values to the user list
-                        // make sure new user is not aldready registered
                         resetForm();
                         if(image != null) {                            
                             const newMemory = {...values, ...image}
@@ -128,7 +126,6 @@ export default function NewMemoryScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginTop: 0,
       backgroundColor: ColorPicker.otherColor1
     },
     background: {
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       height: 600,
-      marginTop: '20%',
+      marginTop: '10%',
       marginLeft: 20,
       marginRight: 20,
       marginBottom: '100%',

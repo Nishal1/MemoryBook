@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     detailsContainer: {
-        // flex: 5,
         margin: 10,
         height: 200
     }

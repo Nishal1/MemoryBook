@@ -40,7 +40,6 @@ export default function TabNavigator() {
                       source={{uri: image}}
                       style={styles.img}
                     /> 
-                  
             }}
         />
         <Tab.Screen 
@@ -63,6 +62,18 @@ export default function TabNavigator() {
                 tabBarIcon: () => 
                     <CustomIcon size={40} 
                     name="plus-box"
+                    iconColor='#FFF'
+                    backgroundColor={ColorPicker.otherColor} />
+            }}
+        />
+        <Tab.Screen 
+            name="MoreInfo" 
+            component={MoreInfoScreen}  
+            options={{
+                headerShown: false, 
+                tabBarIcon: () => 
+                    <CustomIcon size={40} 
+                    name="more"
                     iconColor='#FFF'
                     backgroundColor={ColorPicker.otherColor} />
             }}
