@@ -17,7 +17,7 @@ import FormTextInput from '../components/FormTextInput';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
 
-import { getCurrUser, getImgs, updateMemory } from '../controller/logic';
+import { deleteMemory, getCurrUser, getImgs, updateMemory } from '../controller/logic';
 
 const schema = Yup.object().shape(
   {
@@ -89,10 +89,12 @@ export default function MoreInfoScreen({navigation}) {
                   handleDeleteEvent(item);
                 }}
                 onPressEdit={() => {
-                  setVisibility(true);
+                  console.log("item from list")
                   console.log(item);
                   setSelectedMemory(item);
+                  console.log("memory selected")
                   console.log(memorySelected);
+                  setVisibility(true);
                 }}
               />
             }
@@ -110,7 +112,7 @@ export default function MoreInfoScreen({navigation}) {
                       <TouchableOpacity 
                         onPress={() => {
                           setVisibility(false);
-                          setSelectedMemory(false);
+                          setSelectedMemory(null);
                         }}
                         style={styles.closeIcon}
                       >
@@ -135,22 +137,24 @@ export default function MoreInfoScreen({navigation}) {
                                 values.category = memorySelected.category;
                               }
                               resetForm();
-                              if(image != null) {             
-                                  const updatedMemory = {...values, ...image}
-                                  console.log(updatedMemory);
-                                  console.log(getCurrUser())
-                                  updateMemory(
-                                    updatedMemory,
-                                    memorySelected.id, 
-                                    getCurrUser().id
-                                  );
-                                  resetForm();
-                                  setImage(null);
-                                  setImageList(getImgs());
-                                  setVisibility(false);
+                              let updatedMemory = {};
+                              if(image == null) {
+                                updatedMemory = {...values, source: memorySelected.source}
                               } else {
-                                  alert("Please select a valid image")
-                              }
+                                updatedMemory = {...values, ...image}
+                              }  
+                              console.log(updatedMemory);
+                              console.log(getCurrUser())
+                              updateMemory(
+                                updatedMemory,
+                                memorySelected.id, 
+                                getCurrUser().id
+                              );
+                              resetForm();
+                              setImage(null);
+                              setImageList(getImgs());
+                              setVisibility(false);
+                              
                           }}
                           validationSchema={schema}>
                       {({values, handleChange, handleSubmit, errors, setFieldTouched, touched}) => (
@@ -185,8 +189,9 @@ export default function MoreInfoScreen({navigation}) {
                                           iconColor={ColorPicker.otherColor} 
                                           backgroundColor={ColorPicker.primaryColor} />
                                       {memorySelected && !image &&
+                                        
                                           <Image 
-                                              source={isFinite(memorySelected) ?
+                                              source={isFinite(memorySelected.source) ?
                                                 memorySelected.source:
                                                 {uri: memorySelected.source}
                                               } 
