@@ -125,5 +125,6 @@ module.exports.updateMemory = (memory, memoryId, uid) => {
         ...memory,
         created: new Date()
     }
+    console.log(updatedMemory);
     commonData.updateMemory(updatedMemory);
 }

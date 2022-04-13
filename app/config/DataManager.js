@@ -53,6 +53,8 @@ export default class DataManager {
 
     getImages() {
         let signedInUserId = this.getUserId();
+        if(this.imgList == null)
+            return [];
         let currImgs = this.imgList.filter(img => img.userid === signedInUserId);
         return currImgs;
     }
@@ -88,6 +90,8 @@ export default class DataManager {
         this.imgList = this.imgList.map(img => {
             if(img.id === memory.id && img.userid === signedInUserId) {
                 return memory;
+            } else {
+                return img;
             }
         });
         console.log(this.imgList);

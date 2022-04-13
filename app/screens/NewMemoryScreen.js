@@ -1,4 +1,4 @@
-import { Image, StyleSheet,
+import { Image, StyleSheet,  
     ScrollView, TouchableOpacity,
     View } from 'react-native';
 import React, { useState } from 'react';
@@ -26,6 +26,7 @@ const schema = Yup.object().shape(
 
 export default function NewMemoryScreen({navigation}) {
   const [image, setImage] = useState(null);
+
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
