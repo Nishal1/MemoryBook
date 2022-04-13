@@ -4,7 +4,8 @@ import { categories } from "./categories";
 export default class DataManager {
     static myInstance = null;
     session = null;
-    
+    imgList = [...images];
+    userList = [...users];
     static getInstance() {
         if(DataManager.myInstance == null) {
             DataManager.myInstance = new DataManager();
@@ -26,9 +27,9 @@ export default class DataManager {
     }
 
     register(user) {
-        users.push(user);
+        this.userList.push(user);
         console.log("after register")
-        console.log(users);
+        console.log(this.userList);
     }
 
     getLoggedInUser() {
@@ -47,12 +48,12 @@ export default class DataManager {
     }
 
     getAllUsers() {
-        return users;
+        return this.userList;
     }
 
     getImages() {
         let signedInUserId = this.getUserId();
-        let currImgs = images.filter(img => img.userid === signedInUserId);
+        let currImgs = this.imgList.filter(img => img.userid === signedInUserId);
         return currImgs;
     }
 
@@ -64,8 +65,8 @@ export default class DataManager {
         if(memory == null) {
             return;
         }
-        images.push(memory);
-        console.log(images);
+        this.imgList.push(memory);
+        console.log(this.imgList);
     }
 
     deleteMemory(memory) {
@@ -74,9 +75,9 @@ export default class DataManager {
         }
         //only signed in user can delete their own memory
         let signedInUserId = this.getUserId(); 
-        images = images.filter(img => (img.id === memory.id) && 
+        this.imgList = this.imgList.filter(img => (img.id !== memory.id) && 
                                        (img.userid === signedInUserId));
-        console.log(images);
+        console.log(this.imgList);
     }
 
     updateMemory(memory) {
@@ -84,11 +85,11 @@ export default class DataManager {
             return;
         }
         let signedInUserId = this.getUserId();
-        images = images.map(img => {
-            if(img.id === memory.id) {
+        this.imgList = this.imgList.map(img => {
+            if(img.id === memory.id && img.userid === signedInUserId) {
                 return memory;
             }
         });
-        console.log(images);
+        console.log(this.imgList);
     }
 }
