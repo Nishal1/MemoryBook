@@ -34,7 +34,7 @@ export default function Card({category, created, source, title, onPressDel, onPr
                     {created.getDate()}/{created.getMonth() + 1}/{created.getFullYear()}
                 </AppText>
             </View>
-            <Menu style={styles.icon}>
+            <Menu>
                 <MenuTrigger>
                     <CustomIcon 
                         size={50} 

@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker'
 
 import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
+import Category from '../components/Category';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
 import FormTextInput from '../components/FormTextInput';
@@ -16,17 +17,19 @@ import StyleText from '../components/StyleText';
 
 import { getCurrUser, addMemory } from '../controller/logic';
 
-
 const schema = Yup.object().shape(
     {
-        title: Yup.string().required().label("Title"),
-        category: Yup.string().required().label("Category")
+        title: Yup.string().required().label("Title")
     }
 );
 
 export default function NewMemoryScreen({navigation}) {
   const [image, setImage] = useState(null);
+  const [category, setCategory] = useState("");
 
+  const getSelectedCategory = (categ) => {
+    setCategory(categ);
+  }
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -48,17 +51,21 @@ export default function NewMemoryScreen({navigation}) {
             <View style={styles.mainContainer}>
                 <StyleText>Create new memory</StyleText>
                 <Formik
-                    initialValues={{title: "", 
-                                    category: ""
-                                }}
+                    initialValues={{title: ""}}
                     onSubmit={(values, {resetForm}) => {
                         resetForm();
+                        if(category === "") {
+                            alert("Please select a category");
+                            return;
+                        }
+                        console.log("here")
                         if(image != null) {                            
-                            const newMemory = {...values, ...image}
+                            const newMemory = {...values, ...image, category: category}
                             console.log(newMemory);
                             addMemory(newMemory, getCurrUser().id);
                             resetForm();
                             setImage(null);
+                            setCategory("");
                             navigation.navigate('Memory', {
                                 screen: 'Memory',
                                 params: {
@@ -83,7 +90,7 @@ export default function NewMemoryScreen({navigation}) {
                                 value={values.title}   
                             />
                             {touched.title && <AppText>{errors.title}</AppText>}
-                            <FormTextInput 
+                            {/* <FormTextInput 
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 keyboardType="default"
@@ -92,7 +99,12 @@ export default function NewMemoryScreen({navigation}) {
                                 placeholder="Category"
                                 value={values.category} 
                             />
-                            {touched.category && <AppText>{errors.category}</AppText>}
+                            {touched.category && <AppText>{errors.category}</AppText>} */}
+                            <Category 
+                                getCateg={getSelectedCategory}
+                                isCategDisplay={category}
+                                isEditScreen={false}
+                            />
                             <TouchableOpacity 
                                 style={styles.imageButton}
                                 onPress={openImagePickerAsync}>

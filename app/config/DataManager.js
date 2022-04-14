@@ -53,8 +53,9 @@ export default class DataManager {
 
     getImages() {
         let signedInUserId = this.getUserId();
-        if(this.imgList == null)
+        if(this.imgList == null) {
             return [];
+        }
         let currImgs = this.imgList.filter(img => img.userid === signedInUserId);
         return currImgs;
     }
@@ -68,7 +69,6 @@ export default class DataManager {
             return;
         }
         this.imgList.push(memory);
-        console.log(this.imgList);
     }
 
     deleteMemory(memory) {
@@ -76,10 +76,11 @@ export default class DataManager {
             return;
         }
         //only signed in user can delete their own memory
-        let signedInUserId = this.getUserId(); 
-        this.imgList = this.imgList.filter(img => (img.id !== memory.id) && 
-                                       (img.userid === signedInUserId));
-        console.log(this.imgList);
+        let signedInUserId = this.getUserId();
+        if(memory.userid !== signedInUserId) {
+            alert("You do not have permission to do that action!");
+        } 
+        this.imgList = this.imgList.filter(img => (img.id !== memory.id));
     }
 
     updateMemory(memory) {
@@ -94,6 +95,5 @@ export default class DataManager {
                 return img;
             }
         });
-        console.log(this.imgList);
     }
 }

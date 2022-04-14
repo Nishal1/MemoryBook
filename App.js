@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 import {NavigationContainer} from '@react-navigation/native'
 import 'react-native-get-random-values';

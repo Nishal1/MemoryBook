@@ -7,7 +7,7 @@ import ColorPicker from '../config/ColorPicker'
 export default function FormTextInput({...otherProps}) {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} {...otherProps} />
+      <TextInput placeholderTextColor="#D3D3D3" style={styles.textInput} {...otherProps} />
     </View>
   )
 }
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto',
         marginLeft: 10,
         flex: 1,
-        color: ColorPicker.black
+        color: '#D3D3D3',
     }
 })

@@ -2,6 +2,7 @@ import { Alert,
   FlatList, Image, Modal, ScrollView,
   StyleSheet, TouchableOpacity, 
   View } from 'react-native';
+import { MenuProvider } from 'react-native-popup-menu';
 import React, { useState } from 'react';
 import { Formik  } from 'formik';
 import * as Yup from 'yup';
@@ -11,6 +12,7 @@ import { BlurView } from 'expo-blur';
 import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
 import Card from '../components/Card';
+import Category from '../components/Category';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
 import FormTextInput from '../components/FormTextInput';
@@ -21,8 +23,7 @@ import { deleteMemory, getCurrUser, getImgs, updateMemory } from '../controller/
 
 const schema = Yup.object().shape(
   {
-      title: Yup.string().label("Title"),
-      category: Yup.string().label("Category")
+      title: Yup.string().label("Title")
   }
 );
 
@@ -31,6 +32,14 @@ export default function MoreInfoScreen({navigation}) {
   const [isModalVisible, setVisibility] = useState(false);
   const [memorySelected, setSelectedMemory] = useState(null);
   const [image, setImage] = useState(null);
+  const [category, setCategory] = useState("");
+
+  const getSelectedCategory = (categ) => {
+    if(categ === "") {
+      setCategory(memorySelected.category);
+    }
+    setCategory(categ);
+  }
 
   const handleDeleteEvent = (memory) => {
     Alert.alert(
@@ -105,7 +114,7 @@ export default function MoreInfoScreen({navigation}) {
             transparent={true}
             visible={isModalVisible} 
         >
-            
+          <MenuProvider skipInstanceCheck>  
             <BlurView intensity={100} style={styles.modal} tint="light">
                 <ScrollView>
                   <View style={styles.mainContainer}>
@@ -126,25 +135,32 @@ export default function MoreInfoScreen({navigation}) {
                       </TouchableOpacity>  
                       <StyleText>Edit memory</StyleText>
                       <Formik
-                          initialValues={{title: "", 
-                                          category: ""
-                                      }}
+                          initialValues={{title: ""}}
                           onSubmit={(values, {resetForm}) => {
                               if(values.title === "") {
                                   values.title = memorySelected.title;
                               }
-                              if(values.category === "") {
-                                values.category = memorySelected.category;
-                              }
+                              
                               resetForm();
                               let updatedMemory = {};
+                              let cat = memorySelected.category;
+                              if(category !== "") {
+                                cat = category;
+                              }
+                              console.log( "Cat"+ cat);
                               if(image == null) {
-                                updatedMemory = {...values, source: memorySelected.source}
+                                updatedMemory = {
+                                  ...values, 
+                                  category: cat, 
+                                  source: memorySelected.source
+                                }
                               } else {
-                                updatedMemory = {...values, ...image}
+                                updatedMemory = {
+                                  ...values, 
+                                  category: cat, 
+                                  ...image
+                                }
                               }  
-                              console.log(updatedMemory);
-                              console.log(getCurrUser())
                               updateMemory(
                                 updatedMemory,
                                 memorySelected.id, 
@@ -170,15 +186,13 @@ export default function MoreInfoScreen({navigation}) {
                                       value={values.title}   
                                   />
                                   {/* {touched.title && <AppText>{errors.title}</AppText>} */}
-                                  <FormTextInput 
-                                      autoCapitalize="none"
-                                      autoCorrect={false}
-                                      keyboardType="default"
-                                      // onBlur={() => setFieldTouched("category")}
-                                      onChangeText = {handleChange("category")}
-                                      placeholder={"Category: " + memorySelected.category}
-                                      value={values.category} 
+                                  
+                                  <Category 
+                                    getCateg={getSelectedCategory}
+                                    isCategDisplay={memorySelected.category}
+                                    isEditScreen={true}
                                   />
+                                  
                                   {/* {touched.category && <AppText>{errors.category}</AppText>} */}
                                   <TouchableOpacity 
                                       style={styles.imageButton}
@@ -218,6 +232,7 @@ export default function MoreInfoScreen({navigation}) {
                 </View>  
               </ScrollView> 
             </BlurView>
+          </MenuProvider>  
         </Modal>
       </View>
     </Screen>
@@ -278,5 +293,5 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  },
+  }
 })
