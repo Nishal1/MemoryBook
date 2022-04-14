@@ -16,7 +16,9 @@ import ValidationMessage from '../components/ValidationMessage';
 
 import { isUniqueUser, registerUser, getUser } from '../controller/logic';
 
-
+/**
+ * By default, all the fields in registration form are compulsory
+ */
 const schema = Yup.object().shape(
     {
         email: Yup.string().required().email().label("Email"),
@@ -44,20 +46,12 @@ export default function RegisterScreen({navigation}) {
                                       name: "",
                                       password: ""}}
                       onSubmit={(values, {resetForm}) => {
-                          //push values to the user list
-                          // make sure new user is not aldready registered
                           resetForm();
-
-                          console.log(values);
-                          if(isUniqueUser(values)) {
-                            //push to users array
-                            console.log("Register");
-                            console.log(context);
-                            registerUser(values);
+                          if(isUniqueUser(values)) { //make sure the new user is not already registered
+                            registerUser(values); //add to users list & also login the user
                             let userLoggedIn = getUser(values.username);
-                            context.setCurrUser(userLoggedIn);
-                            console.log(userLoggedIn);
-                            alert("Welcome "+ values.name);
+                            context.setCurrUser(userLoggedIn); //setting the global state to help with route protection
+                            alert("Welcome "+ values.name); 
                             navigation.navigate('AccountHome', {
                               screen: 'Account',
                               params: {
@@ -68,8 +62,9 @@ export default function RegisterScreen({navigation}) {
                               }
                             });
                           } else {
+                            //reached here => user is already registered
                             resetForm();
-                            alert("Username already exists");
+                            alert("Username already exists"); 
                           }
                       }}
                       validationSchema={schema}>

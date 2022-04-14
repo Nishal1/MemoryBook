@@ -9,7 +9,7 @@ import AppNavigator from './app/navigation/AppNavigator';
 import AppNavPublic from './app/navigation/AppNavPublic';
 
 export default function App() {
-  const [currentUser, setCurrUser] = useState(null);
+  const [currentUser, setCurrUser] = useState(null); //used to keep track of the user signed in
   const userConfig = {
     signedInUser: currentUser,
     setCurrUser
@@ -24,5 +24,3 @@ export default function App() {
     </AppContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({});

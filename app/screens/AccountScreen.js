@@ -1,6 +1,5 @@
 import { Image,
     StyleSheet,
-    Text,
     View } from 'react-native'
 import React, { useContext } from 'react'
 
@@ -16,11 +15,10 @@ import { endSession, getUser } from '../controller/logic';
 
 const defaultPic = require('../assets/defaultProfile.png')
 
-export default function AccountScreen({navigation, route}) {
+export default function AccountScreen({ navigation }) {
   const context = useContext(AppContext);
   const currUser = getUser(context.signedInUser.username);
-  console.log("Accounts screen")
-  console.log(currUser);
+
   return (
     <Screen style={styles.container}>
         <View style={styles.body}>

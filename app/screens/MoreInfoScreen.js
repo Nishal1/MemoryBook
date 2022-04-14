@@ -34,14 +34,24 @@ export default function MoreInfoScreen({navigation}) {
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-
+  /**
+   * 
+   * @param {*} categ -category chosen
+   * This methods helps in saving the category picked
+   * by the user when trying to update the memory
+   */
   const getSelectedCategory = (categ) => {
     if(categ === "") {
       setCategory(memorySelected.category);
     }
     setCategory(categ);
   }
-
+  /**
+   * 
+   * @param {*} memory -memory object to delete
+   * This functions handles the delete event
+   * by calling relevant method from logic.js
+   */
   const handleDeleteEvent = (memory) => {
     Alert.alert(
       "Are you sure you want to delete this memory?",
@@ -67,6 +77,10 @@ export default function MoreInfoScreen({navigation}) {
       ]
     );
   }
+  /**
+   * 
+   * This method helps in picking the image
+   */
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -80,7 +94,6 @@ export default function MoreInfoScreen({navigation}) {
         return;
     }
     setImage({ source: pickerResult.uri });
-    console.log(pickerResult);
   }
   return (
     <Screen>
@@ -102,11 +115,7 @@ export default function MoreInfoScreen({navigation}) {
                 handleDeleteEvent(item);
               }}
               onPressEdit={() => {
-                console.log("item from list")
-                console.log(item);
                 setSelectedMemory(item);
-                console.log("memory selected")
-                console.log(memorySelected);
                 setVisibility(true);
               }}
             />
@@ -114,7 +123,7 @@ export default function MoreInfoScreen({navigation}) {
         />
         {imageList.length < 0 ? <AppText style={styles.text}>
           Sorry, You don't have any memories here :(
-        </AppText>: <></>}
+        </AppText>: <></>} 
         <Modal 
             animationType="fade"
             statusBarTranslucent={false}
@@ -154,7 +163,6 @@ export default function MoreInfoScreen({navigation}) {
                               if(category !== "") {
                                 cat = category;
                               }
-                              console.log( "Cat"+ cat);
                               if(image == null) {
                                 updatedMemory = {
                                   ...values, 

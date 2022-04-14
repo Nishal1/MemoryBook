@@ -27,10 +27,19 @@ const schema = Yup.object().shape(
 export default function NewMemoryScreen({navigation}) {
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
-
+  /**
+   * 
+   * @param {*} categ -category chosen
+   * This methods helps in saving the category picked
+   * by the user for adding new memory
+   */
   const getSelectedCategory = (categ) => {
     setCategory(categ);
   }
+  /**
+   * 
+   * This method helps in picking the image
+   */
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -44,7 +53,6 @@ export default function NewMemoryScreen({navigation}) {
         return;
     }
     setImage({ source: pickerResult.uri });
-    console.log(pickerResult);
   }
   return (
     <Screen style={styles.container}>
@@ -59,10 +67,8 @@ export default function NewMemoryScreen({navigation}) {
                             alert("Please select a category");
                             return;
                         }
-                        console.log("here")
                         if(image != null) {                            
-                            const newMemory = {...values, ...image, category: category}
-                            console.log(newMemory);
+                            const newMemory = {...values, ...image, category: category};
                             addMemory(newMemory, getCurrUser().id);
                             resetForm();
                             setImage(null);

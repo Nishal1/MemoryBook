@@ -7,7 +7,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 
 const Stack = createStackNavigator();
-
+//this navigator is available when user is not signed in
 export default function AppNavPublic() {
   return (
     <Stack.Navigator>

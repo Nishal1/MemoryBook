@@ -12,25 +12,14 @@ import NewMemoryScreen from '../screens/NewMemoryScreen';
 
 const Tab = createBottomTabNavigator();
 
-import { getCurrUser, getUser } from '../controller/logic';
+import { getCurrUser } from '../controller/logic';
 
 export default function TabNavigator() {
-  const context = useContext(AppContext);
   let user = getCurrUser();
-  // console.log("from tabnavigator")
-  // console.log(context);
-  // if(context.signedInUser) {
-  //   user = getUser(context.signedInUser.username);
-  // }
-  // if(!user) {
-  //   alert("Something went wrong");
-  // }
-  console.log("from tab nav")
-  console.log(user);
-  console.log(context);
   let image;
+  //use profilePic in user object, if not use the default image as profile picture
   if(user && user.profilePic) {
-    image = user.profilePic;
+    image = user.profilePic; 
   } else {
     image = require('../assets/defaultProfile.png');
   }
