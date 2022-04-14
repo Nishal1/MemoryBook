@@ -14,6 +14,8 @@ import { filterCategories, getImgs } from '../controller/logic';
 
 export default function MemoriesScreen({ route }) {
   const [category, setCategory] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+
   let imageList = (category) ? filterCategories(category) : getImgs();
   if(route.params) {
     const { refresh } = route.params;
@@ -47,22 +49,24 @@ export default function MemoriesScreen({ route }) {
                     title="Clear All filter"  
                 />
             </View>):(<></>)}
-        {imageList.length > 0 ? 
-          <FlatList  
-          data={imageList}
-          keyExtractor={img => img.id.toString()}
-          key={'#'}
-          numColumns={3}
-          renderItem={({item}) => 
-            <ListView 
-              title={item.title}
-              image={item.source}
-            />
-          }
-        />:
-        <AppText style={styles.text}>
-          Sorry, You don't have any memories of selected category :(
-        </AppText>
+        
+            {imageList.length > 0 ? 
+                <FlatList  
+                  data={imageList}
+                  keyExtractor={img => img.id.toString()}
+                  key={'#'}
+                  refreshing={refreshing}
+                  onRefresh={() => setCategory(null)}
+                  numColumns={3}
+                  renderItem={({item}) => 
+                    <ListView 
+                      title={item.title}
+                      image={item.source}
+                    />
+                }/>:
+                <AppText style={styles.text}>
+                  Sorry, You don't have any memories of selected category :(
+                </AppText>
         }
       </View>
     </Screen>

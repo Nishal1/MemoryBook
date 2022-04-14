@@ -2,11 +2,12 @@ import { StyleSheet,
     ScrollView,
     View,
     ImageBackground } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import AppButton from '../components/AppButton';
+import AppContext from '../components/AppContext';
 import AppTextInput from '../components/AppTextInput';
 import ColorPicker from '../config/ColorPicker';
 import Screen from '../components/Screen';
@@ -25,6 +26,7 @@ const schema = Yup.object().shape(
 );
 
 export default function LoginScreen({navigation}) {
+    const context = useContext(AppContext);
     return (
         <Screen style={styles.container}>
             <ImageBackground
@@ -42,6 +44,7 @@ export default function LoginScreen({navigation}) {
                                 resetForm();
                                 beginSession(values);
                                 let userLoggedIn = getUser(values.username);
+                                context.setCurrUser(userLoggedIn);
                                 navigation.navigate('AccountHome', {
                                     screen: 'Account',
                                     params: {

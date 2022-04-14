@@ -1,7 +1,8 @@
 import { Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import AppContext from '../components/AppContext';
 import AccountsNavigator from './AccountsNavigator';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
@@ -11,13 +12,27 @@ import NewMemoryScreen from '../screens/NewMemoryScreen';
 
 const Tab = createBottomTabNavigator();
 
-import { getCurrUser } from '../controller/logic';
+import { getCurrUser, getUser } from '../controller/logic';
 
 export default function TabNavigator() {
-  const user = getCurrUser();
-  let image = user.profilePic;
-  if(image == null) {
-    image = require('../assets/defaultProfile.png')
+  const context = useContext(AppContext);
+  let user = getCurrUser();
+  // console.log("from tabnavigator")
+  // console.log(context);
+  // if(context.signedInUser) {
+  //   user = getUser(context.signedInUser.username);
+  // }
+  // if(!user) {
+  //   alert("Something went wrong");
+  // }
+  console.log("from tab nav")
+  console.log(user);
+  console.log(context);
+  let image;
+  if(user && user.profilePic) {
+    image = user.profilePic;
+  } else {
+    image = require('../assets/defaultProfile.png');
   }
   return (
       <Tab.Navigator screenOptions={{

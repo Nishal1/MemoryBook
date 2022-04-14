@@ -57,9 +57,14 @@ module.exports.isUniqueUser = (user) => {
 
 module.exports.registerUser = (user) => {
     if(user != null) {
+        console.log("enter register")
         let commonData = DataManager.getInstance();
+        user.username = user.username.trim() //extra measure to avoid empty spaces in username
+        console.log("before register")
         commonData.register(user);
+        console.log("after register")
         commonData.login(user);
+        console.log(commonData.getAllUsers());
     }
 }
 

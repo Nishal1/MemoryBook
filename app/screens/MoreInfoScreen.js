@@ -18,7 +18,6 @@ import CustomIcon from '../components/CustomIcon';
 import FormTextInput from '../components/FormTextInput';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
-import ValidationMessage from '../components/ValidationMessage';
 
 import { deleteMemory, getCurrUser, getImgs, updateMemory } from '../controller/logic';
 
@@ -34,6 +33,7 @@ export default function MoreInfoScreen({navigation}) {
   const [memorySelected, setSelectedMemory] = useState(null);
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
 
   const getSelectedCategory = (categ) => {
     if(categ === "") {
@@ -85,30 +85,36 @@ export default function MoreInfoScreen({navigation}) {
   return (
     <Screen>
       <View style={styles.container}>
-          <FlatList  
-            data={imageList}
-            keyExtractor={img => img.id.toString()}
-            key={'#'}
-            renderItem={({item}) => 
-              <Card
-                category={item.category}
-                created={item.created}
-                source={item.source} 
-                title={item.title}
-                onPressDel={() => {
-                  handleDeleteEvent(item);
-                }}
-                onPressEdit={() => {
-                  console.log("item from list")
-                  console.log(item);
-                  setSelectedMemory(item);
-                  console.log("memory selected")
-                  console.log(memorySelected);
-                  setVisibility(true);
-                }}
-              />
-            }
+          
+        <FlatList  
+          data={imageList}
+          keyExtractor={img => img.id.toString()}
+          key={'#'}
+          refreshing={refreshing}
+          onRefresh={() => setImageList(getImgs())}
+          renderItem={({item}) => 
+            <Card
+              category={item.category}
+              created={item.created}
+              source={item.source} 
+              title={item.title}
+              onPressDel={() => {
+                handleDeleteEvent(item);
+              }}
+              onPressEdit={() => {
+                console.log("item from list")
+                console.log(item);
+                setSelectedMemory(item);
+                console.log("memory selected")
+                console.log(memorySelected);
+                setVisibility(true);
+              }}
+            />
+          }
         />
+        {imageList.length < 0 ? <AppText style={styles.text}>
+          Sorry, You don't have any memories here :(
+        </AppText>: <></>}
         <Modal 
             animationType="fade"
             statusBarTranslucent={false}
@@ -299,5 +305,11 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  text: {
+    fontSize: 18,
+    marginTop: 300,
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 })

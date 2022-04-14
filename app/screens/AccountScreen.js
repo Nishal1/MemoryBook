@@ -2,21 +2,24 @@ import { Image,
     StyleSheet,
     Text,
     View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 
 import AppButton from '../components/AppButton';
+import AppContext from '../components/AppContext';
 import AppText from '../components/AppText';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
 import DetailsCard from '../components/DetailsCard';
 import Screen from '../components/Screen';
 
-import { endSession } from '../controller/logic';
+import { endSession, getUser } from '../controller/logic';
 
 const defaultPic = require('../assets/defaultProfile.png')
 
 export default function AccountScreen({navigation, route}) {
-  const { currUser } = route.params;
+  const context = useContext(AppContext);
+  const currUser = getUser(context.signedInUser.username);
+  console.log("Accounts screen")
   console.log(currUser);
   return (
     <Screen style={styles.container}>
@@ -47,8 +50,9 @@ export default function AccountScreen({navigation, route}) {
                                 backgroundColor={ColorPicker.otherColor}
                         />}
                         onPress={() => {
+                            context.setCurrUser(null);
                             endSession();
-                            navigation.navigate('Welcome')
+                            navigation.navigate('WelcomeScreen');
                         }}
                         title="Log out"  
                     />

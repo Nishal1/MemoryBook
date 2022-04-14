@@ -2,13 +2,13 @@ import { StyleSheet,
   ScrollView,
   View,
   ImageBackground } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik  } from 'formik';
 import * as Yup from 'yup';
 
 import AppButton from '../components/AppButton';
+import AppContext from '../components/AppContext';
 import AppTextInput from '../components/AppTextInput';
-import AppText from '../components/AppText';
 import ColorPicker from '../config/ColorPicker';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
@@ -27,109 +27,115 @@ const schema = Yup.object().shape(
 );
 
 export default function RegisterScreen({navigation}) {
-return (
-  <Screen style={styles.container}>
-      <ImageBackground
-          source={require('../assets/welcome.jpg')}
-          style={styles.background}
-          blurRadius={0.9}
-      >
-        <ScrollView>
-            <View style={styles.mainContainer}>
-                <StyleText>Register</StyleText>
-                <Formik
-                    initialValues={{email: "", 
-                                    username: "",
-                                    name: "",
-                                    password: ""}}
-                    onSubmit={(values, {resetForm}) => {
-                        //push values to the user list
-                        // make sure new user is not aldready registered
-                        resetForm();
-                        console.log(values);
-                        if(isUniqueUser(values)) {
-                          //push to users array
-                          registerUser(values);
-                          let userLoggedIn = getUser(values.username);
-                          alert("Welcome "+ values.name);
-                          navigation.navigate('AccountHome', {
-                            screen: 'Account',
-                            params: {
-                                screen: 'AccountHome1',
-                                params: {
-                                   currUser: userLoggedIn
-                                }
-                            }
-                          });
-                        } else {
+  const context = useContext(AppContext);
+  return (
+    <Screen style={styles.container}>
+        <ImageBackground
+            source={require('../assets/welcome.jpg')}
+            style={styles.background}
+            blurRadius={0.9}
+        >
+          <ScrollView>
+              <View style={styles.mainContainer}>
+                  <StyleText>Register</StyleText>
+                  <Formik
+                      initialValues={{email: "", 
+                                      username: "",
+                                      name: "",
+                                      password: ""}}
+                      onSubmit={(values, {resetForm}) => {
+                          //push values to the user list
+                          // make sure new user is not aldready registered
                           resetForm();
-                          alert("Username already exists");
-                        }
-                    }}
-                    validationSchema={schema}>
-                {({values, handleChange, handleSubmit, errors, setFieldTouched, touched}) => (
-                    <>
-                        <View style={styles.textInputContainer}>
-                            <AppTextInput 
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                icon="email"
-                                keyboardType="email-address"
-                                onBlur={() => setFieldTouched("email")}
-                                onChangeText = {handleChange("email")}
-                                placeholder="Email Address" 
-                                value={values.email}   
-                            />
-                            {touched.email && errors.email && errors.email.length > 0 &&<ValidationMessage text={errors.email} />}
-                            <AppTextInput 
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                icon="account"
-                                keyboardType="default"
-                                onBlur={() => setFieldTouched("username")}
-                                onChangeText = {handleChange("username")}
-                                placeholder="Username"
-                                value={values.username} 
-                            />
-                            {touched.username && errors.username && errors.username.length > 0 &&<ValidationMessage text={errors.username} />}
-                            <AppTextInput 
-                                autoCapitalize="words"
-                                autoCorrect={false}
-                                icon="account"
-                                keyboardType="default"
-                                onBlur={() => setFieldTouched("name")}
-                                onChangeText = {handleChange("name")}
-                                placeholder="Full Name"
-                                value={values.name} 
-                            />
-                            {touched.name && errors.name && errors.name.length > 0 &&<ValidationMessage text={errors.name} />}
-                            <AppTextInput 
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                icon="lock"
-                                keyboardType="default"
-                                onBlur={() => setFieldTouched("password")}
-                                onChangeText = {handleChange("password")}
-                                placeholder="Password"
-                                secureTextEntry
-                                value={values.password} 
-                            />
-                            {touched.password && errors.password && errors.password.length > 0 &&<ValidationMessage text={errors.password} />}
-                        </View>
-                        <View style={styles.buttonsContainer}>
-                            <AppButton 
-                                title="Register"
-                                onPress={handleSubmit}
-                            />
-                        </View>
-                    </>
-                )}
-                </Formik>    
-          </View>  
-        </ScrollView>          
-      </ImageBackground>
-  </Screen>
-)
+
+                          console.log(values);
+                          if(isUniqueUser(values)) {
+                            //push to users array
+                            console.log("Register");
+                            console.log(context);
+                            registerUser(values);
+                            let userLoggedIn = getUser(values.username);
+                            context.setCurrUser(userLoggedIn);
+                            console.log(userLoggedIn);
+                            alert("Welcome "+ values.name);
+                            navigation.navigate('AccountHome', {
+                              screen: 'Account',
+                              params: {
+                                  screen: 'AccountHome1',
+                                  params: {
+                                    currUser: userLoggedIn
+                                  }
+                              }
+                            });
+                          } else {
+                            resetForm();
+                            alert("Username already exists");
+                          }
+                      }}
+                      validationSchema={schema}>
+                  {({values, handleChange, handleSubmit, errors, setFieldTouched, touched}) => (
+                      <>
+                          <View style={styles.textInputContainer}>
+                              <AppTextInput 
+                                  autoCapitalize="none"
+                                  autoCorrect={false}
+                                  icon="email"
+                                  keyboardType="email-address"
+                                  onBlur={() => setFieldTouched("email")}
+                                  onChangeText = {handleChange("email")}
+                                  placeholder="Email Address" 
+                                  value={values.email}   
+                              />
+                              {touched.email && errors.email && errors.email.length > 0 &&<ValidationMessage text={errors.email} />}
+                              <AppTextInput 
+                                  autoCapitalize="none"
+                                  autoCorrect={false}
+                                  icon="account"
+                                  keyboardType="default"
+                                  onBlur={() => setFieldTouched("username")}
+                                  onChangeText = {handleChange("username")}
+                                  placeholder="Username"
+                                  value={values.username} 
+                              />
+                              {touched.username && errors.username && errors.username.length > 0 &&<ValidationMessage text={errors.username} />}
+                              <AppTextInput 
+                                  autoCapitalize="words"
+                                  autoCorrect={false}
+                                  icon="account"
+                                  keyboardType="default"
+                                  onBlur={() => setFieldTouched("name")}
+                                  onChangeText = {handleChange("name")}
+                                  placeholder="Full Name"
+                                  value={values.name} 
+                              />
+                              {touched.name && errors.name && errors.name.length > 0 &&<ValidationMessage text={errors.name} />}
+                              <AppTextInput 
+                                  autoCapitalize="none"
+                                  autoCorrect={false}
+                                  icon="lock"
+                                  keyboardType="default"
+                                  onBlur={() => setFieldTouched("password")}
+                                  onChangeText = {handleChange("password")}
+                                  placeholder="Password"
+                                  secureTextEntry
+                                  value={values.password} 
+                              />
+                              {touched.password && errors.password && errors.password.length > 0 &&<ValidationMessage text={errors.password} />}
+                          </View>
+                          <View style={styles.buttonsContainer}>
+                              <AppButton 
+                                  title="Register"
+                                  onPress={handleSubmit}
+                              />
+                          </View>
+                      </>
+                  )}
+                  </Formik>    
+            </View>  
+          </ScrollView>          
+        </ImageBackground>
+    </Screen>
+  )
 }
 
 const styles = StyleSheet.create({
