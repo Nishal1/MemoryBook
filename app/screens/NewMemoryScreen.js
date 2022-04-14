@@ -14,6 +14,7 @@ import CustomIcon from '../components/CustomIcon';
 import FormTextInput from '../components/FormTextInput';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
+import ValidationMessage from '../components/ValidationMessage';
 
 import { getCurrUser, addMemory } from '../controller/logic';
 
@@ -51,7 +52,7 @@ export default function NewMemoryScreen({navigation}) {
             <View style={styles.mainContainer}>
                 <StyleText>Create new memory</StyleText>
                 <Formik
-                    initialValues={{title: ""}}
+                    initialValues={{title: "", img: null}}
                     onSubmit={(values, {resetForm}) => {
                         resetForm();
                         if(category === "") {
@@ -89,17 +90,7 @@ export default function NewMemoryScreen({navigation}) {
                                 placeholder="Title/caption" 
                                 value={values.title}   
                             />
-                            {touched.title && <AppText>{errors.title}</AppText>}
-                            {/* <FormTextInput 
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                keyboardType="default"
-                                onBlur={() => setFieldTouched("category")}
-                                onChangeText = {handleChange("category")}
-                                placeholder="Category"
-                                value={values.category} 
-                            />
-                            {touched.category && <AppText>{errors.category}</AppText>} */}
+                            {touched.title && errors.title && errors.title.length > 0 &&<ValidationMessage text={errors.title} />}
                             <Category 
                                 getCateg={getSelectedCategory}
                                 isCategDisplay={category}

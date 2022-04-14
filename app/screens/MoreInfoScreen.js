@@ -18,6 +18,7 @@ import CustomIcon from '../components/CustomIcon';
 import FormTextInput from '../components/FormTextInput';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
+import ValidationMessage from '../components/ValidationMessage';
 
 import { deleteMemory, getCurrUser, getImgs, updateMemory } from '../controller/logic';
 
@@ -170,7 +171,12 @@ export default function MoreInfoScreen({navigation}) {
                               setImage(null);
                               setImageList(getImgs());
                               setVisibility(false);
-                              
+                              navigation.navigate('Memory', {
+                                screen: 'Memory',
+                                params: {
+                                   refresh: true
+                                }
+                            });
                           }}
                           validationSchema={schema}>
                       {({values, handleChange, handleSubmit, errors, setFieldTouched, touched}) => (

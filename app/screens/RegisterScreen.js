@@ -12,6 +12,7 @@ import AppText from '../components/AppText';
 import ColorPicker from '../config/ColorPicker';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
+import ValidationMessage from '../components/ValidationMessage';
 
 import { isUniqueUser, registerUser, getUser } from '../controller/logic';
 
@@ -79,7 +80,7 @@ return (
                                 placeholder="Email Address" 
                                 value={values.email}   
                             />
-                            {touched.email && <AppText>{errors.email}</AppText>}
+                            {touched.email && errors.email && errors.email.length > 0 &&<ValidationMessage text={errors.email} />}
                             <AppTextInput 
                                 autoCapitalize="none"
                                 autoCorrect={false}
@@ -90,7 +91,7 @@ return (
                                 placeholder="Username"
                                 value={values.username} 
                             />
-                            {touched.username && <AppText>{errors.username}</AppText>}
+                            {touched.username && errors.username && errors.username.length > 0 &&<ValidationMessage text={errors.username} />}
                             <AppTextInput 
                                 autoCapitalize="words"
                                 autoCorrect={false}
@@ -101,7 +102,7 @@ return (
                                 placeholder="Full Name"
                                 value={values.name} 
                             />
-                            {touched.name && <AppText>{errors.email}</AppText>}
+                            {touched.name && errors.name && errors.name.length > 0 &&<ValidationMessage text={errors.name} />}
                             <AppTextInput 
                                 autoCapitalize="none"
                                 autoCorrect={false}
@@ -113,7 +114,7 @@ return (
                                 secureTextEntry
                                 value={values.password} 
                             />
-                            {touched.password && <AppText>{errors.password}</AppText>}
+                            {touched.password && errors.password && errors.password.length > 0 &&<ValidationMessage text={errors.password} />}
                         </View>
                         <View style={styles.buttonsContainer}>
                             <AppButton 
@@ -145,8 +146,7 @@ const styles = StyleSheet.create({
     borderColor: ColorPicker.khaki,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 600,
-    marginTop: '20%',
+    height: 700,
     margin: 20,
     elevation: 20,
     shadowColor: ColorPicker.black,

@@ -3,15 +3,15 @@ import { StyleSheet,
     View,
     ImageBackground } from 'react-native';
 import React from 'react';
-import { Formik  } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import AppButton from '../components/AppButton';
 import AppTextInput from '../components/AppTextInput';
-import AppText from '../components/AppText';
 import ColorPicker from '../config/ColorPicker';
 import Screen from '../components/Screen';
 import StyleText from '../components/StyleText';
+import ValidationMessage from '../components/ValidationMessage';
 
 import { authenticate, 
     beginSession, 
@@ -71,7 +71,8 @@ export default function LoginScreen({navigation}) {
                                     placeholder="Username" 
                                     value={values.username}   
                                 />
-                                {touched.username && <AppText>{errors.username}</AppText>}
+                                {touched.username && errors.username && errors.username.length > 0
+                                 &&<ValidationMessage text={errors.username} />}
                                 <AppTextInput 
                                     autoCapitalize="none"
                                     autoCorrect={false}
@@ -83,7 +84,7 @@ export default function LoginScreen({navigation}) {
                                     secureTextEntry 
                                     value={values.password} 
                                 />
-                                {touched.password && <AppText>{errors.password}</AppText>}
+                                {touched.password && errors.password && errors.password.length > 0 && <ValidationMessage text={errors.password} />}
                             </View>
                             <View style={styles.buttonsContainer}>
                                 <AppButton 
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         borderColor: ColorPicker.khaki,
         justifyContent: 'center',
         alignItems: 'center',
-        height: 500,
+        height: 550,
         marginTop: '25%',
         margin: 20,
         elevation: 20,
