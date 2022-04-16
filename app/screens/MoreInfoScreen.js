@@ -109,6 +109,7 @@ export default function MoreInfoScreen({navigation}) {
             <Card
               category={item.category}
               created={item.created}
+              isView={false}
               source={item.source} 
               title={item.title}
               onPressDel={() => {

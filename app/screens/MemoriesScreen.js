@@ -1,20 +1,23 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 
 
 import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
+import Card from '../components/Card';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
 import FilterView from '../components/FilterView';
 import ListView from '../components/ListView';
 import Screen from '../components/Screen';
 
-import { filterCategories, getImgs } from '../controller/logic';
+import { deleteMemory, filterCategories, getImgs } from '../controller/logic';
 
 export default function MemoriesScreen({ route }) {
   const [category, setCategory] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [isModalVisible, setVisibility] = useState(false);
+  const [selectItem, setSelectItem] = useState(null);
 
   let imageList = (category) ? filterCategories(category) : getImgs();
   if(route.params) {
@@ -23,6 +26,31 @@ export default function MemoriesScreen({ route }) {
       setCategory(null);
     }
   }
+  const handleDeleteEvent = (memory) => {
+    Alert.alert(
+      "Are you sure you want to delete this memory?",
+      "If you delete this, it might be lost forever!",
+      [
+        { 
+          text: "Yes", 
+          onPress: () => {
+            deleteMemory(memory);
+            navigation.navigate('Memory', {
+              screen: 'Memory',
+              params: {
+                refresh: true
+              }
+          });
+        }},
+        {
+          text: "No",
+          onPress: () => console.log("cancelled"),
+          style: "cancel"
+        }
+      ]
+    );
+  }
+
   return (
     <Screen>
       <FilterView 
@@ -60,8 +88,12 @@ export default function MemoriesScreen({ route }) {
                   numColumns={3}
                   renderItem={({item}) => 
                     <ListView 
-                      title={item.title}
                       image={item.source}
+                      title={item.title}
+                      onPress={() => {
+                        setSelectItem(item);
+                        setVisibility(true);
+                      }}
                     />
                 }/>:
                 <AppText style={styles.text}>
@@ -69,6 +101,28 @@ export default function MemoriesScreen({ route }) {
                 </AppText>
         }
       </View>
+      <Modal 
+        animationType="fade"
+        visible={isModalVisible}
+        >
+            {isModalVisible ? 
+              <Card
+                category={selectItem.category}
+                created={selectItem.created}
+                isView={true}
+                source={selectItem.source} 
+                title={selectItem.title}
+                onPressDel={() => {
+                  handleDeleteEvent(selectItem);
+                }}
+                viewOptions= {() => {
+                  setSelectItem(null);
+                  setVisibility(false); 
+                }}
+              />: <></>
+            }
+        </Modal>
+
     </Screen>
   )
 }

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import {
     Menu,
@@ -11,9 +11,24 @@ import AppText from './AppText';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from './CustomIcon';
 
-export default function Card({category, created, source, title, onPressDel, onPressEdit}) {
+export default function Card({category, created, source, title, 
+    onPressDel, onPressEdit, isView, viewOptions}) {
   return (
-    <View style={styles.container}>
+    <View style={!isView ? styles.container: styles.containerNew}>
+        {isView ? 
+            <TouchableOpacity 
+                onPress={viewOptions}
+                style={styles.closeIcon}
+            >
+              <CustomIcon
+                  backgroundColor={ColorPicker.primaryColor} 
+                  iconColor={ColorPicker.otherColor1}
+                  name="close-circle"
+                  size={70}
+                  
+              />
+          </TouchableOpacity> : <></> 
+        }
         <View>
             {isFinite(source)?
             <Image 
@@ -34,37 +49,40 @@ export default function Card({category, created, source, title, onPressDel, onPr
                     {created.getDate()}/{created.getMonth() + 1}/{created.getFullYear()}
                 </AppText>
             </View>
+            {!isView? 
             <Menu>
-                <MenuTrigger>
-                    <CustomIcon 
-                        size={50} 
-                        name="dots-vertical"
-                        iconColor='#FFF'
-                        backgroundColor={ColorPicker.otherColor} 
-                    />
-                </MenuTrigger>
+            <MenuTrigger>
+                <CustomIcon 
+                    size={50} 
+                    name="dots-vertical"
+                    iconColor='#FFF'
+                    backgroundColor={ColorPicker.primaryColor} 
+                />
+            </MenuTrigger>
 
-                <MenuOptions style={styles.optionsContainer}>
-                    <MenuOption style={[styles.options, styles.firstOption]} onSelect={onPressDel}>
-                        <CustomIcon 
-                            size={40} 
-                            name="delete"
-                            iconColor="#F79696"
-                            backgroundColor={ColorPicker.offWhite} 
-                        />
-                        <AppText style={styles.subText}>Delete</AppText>
-                    </MenuOption>
-                    <MenuOption style={styles.options} onSelect={onPressEdit}>
-                        <CustomIcon 
-                            size={40} 
-                            name="pencil"
-                            iconColor={ColorPicker.secondaryColor}
-                            backgroundColor={ColorPicker.offWhite} 
-                        />
-                        <AppText style={styles.subText}>Edit</AppText>
-                    </MenuOption>
-                </MenuOptions>
-            </Menu>
+            <MenuOptions style={styles.optionsContainer}>
+                <MenuOption style={[styles.options, styles.firstOption]} onSelect={onPressDel}>
+                    <CustomIcon 
+                        size={40} 
+                        name="delete"
+                        iconColor="#F79696"
+                        backgroundColor={ColorPicker.offWhite} 
+                    />
+                    <AppText style={styles.subText}>Delete</AppText>
+                </MenuOption>
+                
+                <MenuOption style={styles.options} onSelect={onPressEdit}>
+                    <CustomIcon 
+                        size={40} 
+                        name="pencil"
+                        iconColor={ColorPicker.secondaryColor}
+                        backgroundColor={ColorPicker.offWhite} 
+                    />
+                    <AppText style={styles.subText}>Edit</AppText>
+                </MenuOption>
+            </MenuOptions>
+        </Menu>
+        : <></>}
         </View>
 
     </View>
@@ -83,6 +101,22 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginBottom: 5,
         marginTop: 10
+    },
+    containerNew: {
+        backgroundColor: ColorPicker.primaryColor,
+        borderRadius: 10,
+        elevation: 20,
+        shadowColor: ColorPicker.black,
+        overflow: 'hidden',
+        padding: 8,
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 'auto',
+        marginTop: 'auto'
+    },
+    closeIcon: {
+        marginLeft: 'auto',
+        marginBottom: 'auto'
     },
     text: {
         color: ColorPicker.offWhite,

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
 import AppText from './AppText'
@@ -6,24 +6,26 @@ import ColorPicker from '../config/ColorPicker'
 
 import { textLengthReducer } from '../controller/logic';
 
-export default function ListView({image, title}) {
+export default function ListView({image, title, onPress}) {
   const newTitle = textLengthReducer(title);
   return (
     <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          {isFinite(image)?
-            <Image 
-              source={image}
-              style={styles.img}
-            /> :
-            <Image 
-              source={{uri: image}}
-              style={styles.img}
-            /> 
-          }
-          
-          <AppText style={styles.text}>{newTitle}</AppText>
-        </View>
+        <TouchableOpacity onPress={onPress}>
+          <View style={styles.imageContainer}>
+            {isFinite(image)?
+              <Image 
+                source={image}
+                style={styles.img}
+              /> :
+              <Image 
+                source={{uri: image}}
+                style={styles.img}
+              /> 
+            }
+            
+            <AppText style={styles.text}>{newTitle}</AppText>
+          </View>
+        </TouchableOpacity>
     </View>
   )
 }
