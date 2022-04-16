@@ -122,7 +122,7 @@ export default function MoreInfoScreen({navigation}) {
             />
           }
         />
-        {imageList.length < 0 ? <AppText style={styles.text}>
+        {imageList.length < 1 ? <AppText style={styles.text}>
           Sorry, You don't have any memories here :(
         </AppText>: <></>} 
         <Modal 
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    marginTop: 300,
+    marginBottom: 400,
     marginLeft: 'auto',
     marginRight: 'auto'
   }

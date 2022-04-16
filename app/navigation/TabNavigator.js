@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import AppContext from '../components/AppContext';
 import AccountsNavigator from './AccountsNavigator';
+import BottomTabImage from '../components/BottomTabImage';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
 import MemoriesScreen from '../screens/MemoriesScreen';
@@ -17,17 +18,9 @@ import { getCurrUser } from '../controller/logic';
 export default function TabNavigator() {
   const context = useContext(AppContext);
   const [user, setUser] = useState(getCurrUser());
-  if(user.profilePic !== context.signedInUser.profilePic) {
-    console.log("HERE")
-    setUser(context.signedInUser);
-  }
+
   let image;
-  //use profilePic in user object, if not use the default image as profile picture
-  if(user && user.profilePic) {
-    image = user.profilePic; 
-  } else {
-    image = require('../assets/defaultProfile.png');
-  }
+  
   
   return (
       <Tab.Navigator screenOptions={{
@@ -42,16 +35,10 @@ export default function TabNavigator() {
             component={AccountsNavigator}  
             options={{
                 headerShown: false, 
-                tabBarIcon: () => 
-                isFinite(image)?
-                    <Image 
-                      source={image}
-                      style={styles.img}
-                    /> :
-                    <Image 
-                      source={{uri: image}}
-                      style={styles.img}
-                    /> 
+                tabBarIcon: () =>
+                  <BottomTabImage 
+                    img={styles.img}
+                  />
             }}
         />
         <Tab.Screen 

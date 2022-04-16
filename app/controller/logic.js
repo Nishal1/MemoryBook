@@ -99,10 +99,10 @@ module.exports.registerUser = (user) => {
         let newUser = {
             ...user,
             id: uuidv4(),
-            profilePic: null
+            profilePic: require('../assets/defaultProfile.png')
         }
-        commonData.register(user);
-        commonData.login(user);
+        commonData.register(newUser);
+        commonData.login(newUser);
     }
 }
 

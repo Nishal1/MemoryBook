@@ -51,7 +51,7 @@ export default function RegisterScreen({navigation}) {
                             registerUser(values); //add to users list & also login the user
                             let userLoggedIn = getUser(values.username);
                             context.setCurrUser(userLoggedIn); //setting the global state to help with route protection
-                            alert("Welcome "+ values.name); 
+                            alert("Welcome "+ values.name, "Have fun with your memories!"); 
                             navigation.navigate('AccountHome', {
                               screen: 'Account',
                               params: {
