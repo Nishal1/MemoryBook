@@ -1,5 +1,5 @@
 import { Image, StyleSheet } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import AppContext from '../components/AppContext';
@@ -15,7 +15,12 @@ const Tab = createBottomTabNavigator();
 import { getCurrUser } from '../controller/logic';
 
 export default function TabNavigator() {
-  let user = getCurrUser();
+  const context = useContext(AppContext);
+  const [user, setUser] = useState(getCurrUser());
+  if(user.profilePic !== context.signedInUser.profilePic) {
+    console.log("HERE")
+    setUser(context.signedInUser);
+  }
   let image;
   //use profilePic in user object, if not use the default image as profile picture
   if(user && user.profilePic) {
@@ -23,6 +28,7 @@ export default function TabNavigator() {
   } else {
     image = require('../assets/defaultProfile.png');
   }
+  
   return (
       <Tab.Navigator screenOptions={{
             tabBarActiveBackgroundColor: ColorPicker.primaryColor,
@@ -30,7 +36,9 @@ export default function TabNavigator() {
           }}>
         
         <Tab.Screen 
+            lazy={false}
             name="Account" 
+            unmountOnBlur={true} 
             component={AccountsNavigator}  
             options={{
                 headerShown: false, 
@@ -71,7 +79,7 @@ export default function TabNavigator() {
             }}
         />
         <Tab.Screen 
-            name="MoreInfo" 
+            name="MoreInfo"
             component={MoreInfoScreen}  
             options={{
                 headerShown: false, 

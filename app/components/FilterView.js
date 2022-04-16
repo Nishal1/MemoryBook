@@ -20,13 +20,13 @@ export default function FilterView({placeholder, selectedItem, onSelectItem}) {
   return (
     <View>
         <View style={styles.container}>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
                 <MaterialCommunityIcons 
                     name="magnify"
                     size={24}
                     color={ColorPicker.primaryColor}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             
             <TouchableOpacity>
                 <AppText>{selectedItem ? selectedItem.name: placeholder}</AppText>
@@ -89,7 +89,7 @@ export default function FilterView({placeholder, selectedItem, onSelectItem}) {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         marginTop: 0,
         backgroundColor: ColorPicker.otherColor2,
         padding: 10

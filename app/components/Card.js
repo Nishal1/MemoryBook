@@ -50,18 +50,18 @@ export default function Card({category, created, source, title, onPressDel, onPr
                             size={40} 
                             name="delete"
                             iconColor="#F79696"
-                            backgroundColor={ColorPicker.otherColor} 
+                            backgroundColor={ColorPicker.offWhite} 
                         />
-                        <AppText style={styles.deleteText}>Delete</AppText>
+                        <AppText style={styles.subText}>Delete</AppText>
                     </MenuOption>
                     <MenuOption style={styles.options} onSelect={onPressEdit}>
                         <CustomIcon 
                             size={40} 
                             name="pencil"
                             iconColor={ColorPicker.secondaryColor}
-                            backgroundColor={ColorPicker.otherColor} 
+                            backgroundColor={ColorPicker.offWhite} 
                         />
-                        <AppText style={styles.deleteText}>Edit</AppText>
+                        <AppText style={styles.subText}>Edit</AppText>
                     </MenuOption>
                 </MenuOptions>
             </Menu>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     options: {
         flexDirection: 'row'
     },
-    deleteText: {
+    subText: {
         fontSize: 14,
         marginTop: 8
     }

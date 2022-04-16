@@ -96,6 +96,11 @@ module.exports.registerUser = (user) => {
     if(user != null) {
         let commonData = DataManager.getInstance();
         user.username = user.username.trim() //extra measure to avoid spaces around in username
+        let newUser = {
+            ...user,
+            id: uuidv4(),
+            profilePic: null
+        }
         commonData.register(user);
         commonData.login(user);
     }
@@ -202,4 +207,25 @@ module.exports.updateMemory = (memory, memoryId, uid) => {
         created: new Date()
     }
     commonData.updateMemory(updatedMemory);
+}
+
+/**
+ * 
+ * @param {*} user - user's who's profile image is to be updated
+ * updates the profile image of the user
+ */
+module.exports.editProfileImage = (user, newProfilePic) => {
+    if(user == null) {
+        return;
+    }
+    let commonData = DataManager.getInstance();
+    let updatedUser = {
+        email: user.email,
+        id: user.id,
+        name: user.name,
+        password: user.password,
+        profilePic: newProfilePic.source,
+        username: user.username
+    }
+    commonData.updateProfilePic(updatedUser);
 }

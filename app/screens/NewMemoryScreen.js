@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import * as ImagePicker from 'expo-image-picker'
 
 import AppButton from '../components/AppButton';
-import AppText from '../components/AppText';
 import Category from '../components/Category';
 import ColorPicker from '../config/ColorPicker';
 import CustomIcon from '../components/CustomIcon';
@@ -108,7 +107,7 @@ export default function NewMemoryScreen({navigation}) {
                                 <CustomIcon 
                                     name="camera" 
                                     size={80} 
-                                    iconColor={ColorPicker.otherColor} 
+                                    iconColor={ColorPicker.otherColor1} 
                                     backgroundColor={ColorPicker.primaryColor} />
                                 {image && 
                                     <Image 

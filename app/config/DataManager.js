@@ -152,4 +152,18 @@ export default class DataManager {
             }
         });
     }
+
+    updateProfilePic(updatedUser) {
+        if(updatedUser == null) {
+            return;
+        }
+        this.userList = this.userList.map(person => {
+            if(person.id === updatedUser.id) {
+                return updatedUser;
+            } else {
+                return person;
+            }
+        })
+
+    }
 }
