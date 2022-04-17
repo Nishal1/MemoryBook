@@ -8,7 +8,7 @@ import { getUser } from '../controller/logic';
 export default function BottomTabImage({img}) {
   const context = useContext(AppContext);
   const currUser = getUser(context.signedInUser.username);
-  const [profileImage, setProfileImage] = useState(currUser.profilePic);
+ 
   return (
     isFinite(currUser.profilePic)?
         <Image 
