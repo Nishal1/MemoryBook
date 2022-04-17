@@ -87,6 +87,7 @@ export default function AccountScreen({ navigation }) {
                 editProfileImage(currUser, image);
                 setImage(null);
                 setVisibility(false);
+                alert("Profile picture updated successfully!");
                 navigation.navigate('Account');
             }} 
                 title="Save image" />

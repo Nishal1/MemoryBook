@@ -20,14 +20,6 @@ export default function FilterView({placeholder, selectedItem, onSelectItem}) {
   return (
     <View>
         <View style={styles.container}>
-            {/* <TouchableOpacity>
-                <MaterialCommunityIcons 
-                    name="magnify"
-                    size={24}
-                    color={ColorPicker.primaryColor}
-                />
-            </TouchableOpacity> */}
-            
             <TouchableOpacity>
                 <AppText>{selectedItem ? selectedItem.name: placeholder}</AppText>
             </TouchableOpacity>
@@ -42,7 +34,7 @@ export default function FilterView({placeholder, selectedItem, onSelectItem}) {
         </View>
         <Modal 
             animationType="slide"
-            statusBarTranslucent={false}
+            statusBarTranslucent={false}            
             transparent={true}
             visible={isModalVisible} 
         >
@@ -101,6 +93,7 @@ const styles = StyleSheet.create({
     },
     modal: {
         flex: 1,
-        marginTop: 0
+        marginTop: 0,
+        height: '100%'
     }
 })
