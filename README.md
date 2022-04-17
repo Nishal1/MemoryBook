@@ -4,7 +4,7 @@ An app designed and developed to help you store your memories safely.
 
 ## Preferd platform/device:
 
-Target OS: Android OS
+Target OS: Android OS  
 Device to use for testing: Pixel 4 XL
 
 ## Install dependencies:
