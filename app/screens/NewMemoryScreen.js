@@ -72,6 +72,7 @@ export default function NewMemoryScreen({navigation}) {
                             resetForm();
                             setImage(null);
                             setCategory("");
+                            alert("Memory added successfully!");
                             navigation.navigate('Memory', {
                                 screen: 'Memory',
                                 params: {

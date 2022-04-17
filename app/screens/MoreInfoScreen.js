@@ -62,6 +62,7 @@ export default function MoreInfoScreen({navigation}) {
           onPress: () => {
             deleteMemory(memory);
             setImageList(getImgs());
+            alert("Memory deleted successfully!");
             navigation.navigate('Memory', {
               screen: 'Memory',
               params: {
@@ -186,6 +187,7 @@ export default function MoreInfoScreen({navigation}) {
                               setImage(null);
                               setImageList(getImgs());
                               setVisibility(false);
+                              alert("Memory updated successfully!");
                               navigation.navigate('Memory', {
                                 screen: 'Memory',
                                 params: {
@@ -201,20 +203,15 @@ export default function MoreInfoScreen({navigation}) {
                                       autoCapitalize="none"
                                       autoCorrect={false}
                                       keyboardType="default"
-                                      // onBlur={() => setFieldTouched("title")}
                                       onChangeText = {handleChange("title")}
                                       placeholder={"Title/caption: " + memorySelected.title} 
                                       value={values.title}   
                                   />
-                                  {/* {touched.title && <AppText>{errors.title}</AppText>} */}
-                                  
                                   <Category 
                                     getCateg={getSelectedCategory}
                                     isCategDisplay={memorySelected.category}
                                     isEditScreen={true}
                                   />
-                                  
-                                  {/* {touched.category && <AppText>{errors.category}</AppText>} */}
                                   <TouchableOpacity 
                                       style={styles.imageButton}
                                       onPress={openImagePickerAsync}>

@@ -146,24 +146,6 @@ export default function AccountScreen({ navigation }) {
                     email={currUser.email}        
                 />
             </View>
-
-            {/* <View style={styles.button}>
-                    <AppButton 
-                        color="red"
-                        icon={<CustomIcon 
-                                size={24} 
-                                name="logout-variant"
-                                iconColor='#FFF'
-                                backgroundColor={ColorPicker.otherColor}
-                        />}
-                        onPress={() => {
-                            context.setCurrUser(null);
-                            endSession();
-                            navigation.navigate('WelcomeScreen');
-                        }}
-                        title="Log out"  
-                    />
-                </View> */}
         </View>
         <Modal 
             animationType="fade"
