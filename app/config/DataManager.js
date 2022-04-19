@@ -129,6 +129,7 @@ export default class DataManager {
         let signedInUserId = this.getUserId();
         if(memory.userid !== signedInUserId) {
             alert("You do not have permission to do that action!");
+            return;
         } 
         this.imgList = this.imgList.filter(img => (img.id !== memory.id));
     }

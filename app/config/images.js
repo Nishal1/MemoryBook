@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'; //package to generate ids
-
+/**
+ * Sample memories data
+ */
 module.exports.images = [
   {
     id: uuidv4(),

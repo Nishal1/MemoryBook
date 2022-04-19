@@ -1,7 +1,7 @@
 import { Image, Modal, 
     StyleSheet, TouchableOpacity, 
     View } from 'react-native'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker'
 

@@ -2,7 +2,7 @@
 
 An app designed and developed to help you store your memories safely.
 
-## Preferd platform/device:
+## Preferred platform/device:
 
 Target OS: Android OS  
 Device to use for testing: Pixel 4 XL

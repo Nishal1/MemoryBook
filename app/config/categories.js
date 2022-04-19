@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'; //package to generate ids
-
+/**
+ * Sample categories, not changable to users
+ */
 module.exports.categories = [
     {
         id: uuidv4(),

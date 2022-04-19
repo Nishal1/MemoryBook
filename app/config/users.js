@@ -1,3 +1,6 @@
+/**
+ * Contains two sample users details
+ */
 module.exports.users = [
     {
         id: 1,

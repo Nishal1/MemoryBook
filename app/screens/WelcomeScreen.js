@@ -1,5 +1,4 @@
 import { StyleSheet, 
-    Text,
     View,
     ImageBackground } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
