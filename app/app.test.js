@@ -5,29 +5,29 @@ import AppButton from './components/AppButton';
 import StyleText from './components/StyleText';
 import ValidationMessage from './components/ValidationMessage';
 import ColorPicker from './config/ColorPicker';
-import FilterView from './components/FilterView';
 
-test("AppText has correct font family and size", () => {
+//UI tests
+test("#1 AppText has correct font family and size", () => {
     const json = renderer.create(<AppText />).toJSON();
     expect(json.props.style.fontSize).toBe(20);
     expect(json.props.style.fontFamily).toBe('Roboto');
 });
 
-test("AppText renders text correctly", () => {
+test("#2 AppText renders text correctly", () => {
     const json = renderer.create(<AppText>Some text is here!</AppText>).toJSON();
     expect(json.props.style.fontSize).toBe(20);
     expect(json.props.style.fontFamily).toBe('Roboto');
     expect(json.children.includes("Some text is here!"));
 });
 
-test("StyleText renders text correctly", () => {
+test("#3 StyleText renders text correctly", () => {
     const json = renderer.create(<StyleText>Welcome to memorybook!</StyleText>).toJSON();
     expect(json.children.includes("Welcome to memorybook!"));
     expect(json.children[0].props.style.fontFamily).toBe('Roboto');
     expect(json.children[0].props.style.fontSize).toBe(25);
 });
 
-test("Register button renders correctly", () => {
+test("#4 Register button renders correctly", () => {
     const json = renderer.create(
         <AppButton 
             title="Register"
@@ -39,7 +39,7 @@ test("Register button renders correctly", () => {
     expect(json.children[0].props.style[0].borderRadius).toBe(15);
 });
 
-test("Login button renders correctly", () => {
+test("#5 Login button renders correctly", () => {
     const json = renderer.create(
         <AppButton 
             title="Login"
@@ -50,16 +50,14 @@ test("Login button renders correctly", () => {
     expect(json.children[0].props.style.borderRadius).toBe(15);
 });
 
-test("Validation error message renders text correctly", () => {
+test("#6 Validation error message renders text correctly", () => {
     const json = renderer.create(<ValidationMessage text="Error message goes here" />).toJSON();
-    // console.log(json);
-    // console.log(json.children[0].children);
     expect(json.children.includes("Error message goes here"));
     expect(json.props.style.backgroundColor).toBe('#F7B0BB');
     expect(json.props.style.borderColor).toBe("#C82333");
 });
 
-test("The color scheme is correct", () => {
+test("#7 The color scheme is correct", () => {
     const {primaryColor, secondaryColor,
         otherColor1, otherColor2, 
         inActiveColor, offWhite, khaki,
@@ -73,3 +71,6 @@ test("The color scheme is correct", () => {
     expect(khaki).toBe('#B5A197');
     expect(red).toBe('#C82333');
 });
+
+//logic tests
+
