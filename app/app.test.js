@@ -5,7 +5,81 @@ import AppButton from './components/AppButton';
 import StyleText from './components/StyleText';
 import ValidationMessage from './components/ValidationMessage';
 import ColorPicker from './config/ColorPicker';
-// import LoginScreen from './screens/LoginScreen';
+
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
+
+import { authenticate, isUniqueUser, deleteMemory,
+    beginSession, addMemory, getImgs,
+    getCurrUser, endSession, registerUser } from './controller/logic';
+
+//logic tests
+it('#LG:01 Logging in and logging out test', () => {
+    //a sample user that aldready exists
+    const user = {
+        username: "ross",
+        password: "09876"
+    };
+    beginSession(user);
+    expect(authenticate(user)).toBe(true);
+    expect(getCurrUser().username).toBe("ross");
+    endSession();
+});
+
+it('#LG:02 Registration test', () => {
+    //new user
+    const newUser = {
+        email: 'newuser@gmail.com',
+        username: 'newuser',
+        name: 'New User',
+        password: 'xxxx'
+    };
+    //already existing user
+    const oldUser = {
+        username: "ross",
+        password: "09876"
+    };
+
+    expect(isUniqueUser(newUser)).toBe(true); //new user can register into the system
+    expect(isUniqueUser(oldUser)).toBe(false); //old user cannot register again
+
+    registerUser(newUser);
+    expect(getCurrUser().username).toBe(newUser.username); //make sure new user is logged in 
+    //after registering
+});
+
+it('#LG:03 Add memory test', () => {
+    const user = {
+        username: "ross",
+        password: "09876"
+    };
+    beginSession(user);
+    expect(authenticate(user)).toBe(true);
+    //new memory to add
+    const newMemory = {
+        id: "nfosh211212",
+        title: 'new memory',
+        image: require('./assets/defaultProfile.png'),
+        category: 'Fun',
+        password: 'xxxx'
+    };
+    addMemory(newMemory, getCurrUser().id);
+    let newMem = getImgs().find((i) => i.id === "nfosh211212");
+    expect(newMem.id).toBe("nfosh211212"); //make sure new memory exists
+    expect(newMem.userid).toBe(getCurrUser().id);
+
+    //log the user out and sign back in to test if new memory still persists
+    endSession();
+    expect(getCurrUser()).toBe(null);
+    beginSession(user);
+    expect(authenticate(user)).toBe(true);
+    expect(getCurrUser().username).toBe("ross");
+
+    newMem = getImgs().find((i) => i.id === "nfosh211212")
+    expect(newMem.id).toBe("nfosh211212"); //make sure new memory exists
+});
+
 //UI tests
 test("#UI.01 AppText has correct font family and size", () => {
     const json = renderer.create(<AppText />).toJSON();
@@ -72,12 +146,26 @@ test("#UI.07 The color scheme is correct", () => {
     expect(red).toBe('#C82333');
 });
 
-//logic tests
+//snapshot tests
+it('#SN.01 Login screen renders correctly', () => {
+    const tree = renderer
+      .create(<LoginScreen />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+});
+
+it('#SN.02 Register screen renders correctly', () => {
+    const tree = renderer
+      .create(<RegisterScreen />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+});
+
+it('#SN.03 Welcome screen renders correctly', () => {
+    const tree = renderer
+      .create(<WelcomeScreen />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+});
 
 
-// it('renders correctly', () => {
-//     const tree = renderer
-//       .create(<LoginScreen />)
-//       .toJSON();
-//     expect(tree).toMatchSnapshot();
-// });
